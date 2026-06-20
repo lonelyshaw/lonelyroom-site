@@ -24,107 +24,257 @@
     </header>
 
     <section class="house-shell" data-active-room="home" aria-labelledby="home-title">
-      <div class="room-stage">
+      <div class="room-stage" aria-hidden="true">
         <article class="room-scene is-active" data-room="home">
-          <img class="room-art" src="assets/lonelyroom-home-hall.png" alt="Центральный коридор дома Lonelyroom с тёплым светом, дождём за окном и входом в уютный дом.">
-          <div class="room-effects home-effects" aria-hidden="true">
-            <span class="hall-lamp lamp-one"></span>
-            <span class="hall-lamp lamp-two"></span>
-          </div>
-          <div class="door-map" aria-label="Двери в комнаты">
-            <button class="door-entry entry-books" type="button" data-room-target="books">библиотека</button>
-            <button class="door-entry entry-anime" type="button" data-room-target="anime">аниме</button>
-            <button class="door-entry entry-music" type="button" data-room-target="music">музыка</button>
-            <button class="door-entry entry-blog" type="button" data-room-target="blog">блог</button>
-            <button class="door-entry entry-friends" type="button" data-room-target="friends">друзья</button>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-home-hall.png" alt="">
         </article>
-
         <article class="room-scene" data-room="books">
-          <img class="room-art" src="assets/lonelyroom-books-room.png" alt="Библиотека Lonelyroom с книжными шкафами до потолка, креслом, пледом, лампой и стопками книг.">
-          <div class="room-effects books-effects" aria-hidden="true">
-            <span class="page-turn"></span>
-            <span class="candle-flame flame-one"></span>
-            <span class="candle-flame flame-two"></span>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-books-room.png" alt="">
         </article>
-
         <article class="room-scene" data-room="anime">
-          <img class="room-art" src="assets/lonelyroom-anime-room.png" alt="Аниме-комната Lonelyroom с экраном, мангой, фигурками, подушками и фиолетово-синей подсветкой.">
-          <div class="room-effects anime-effects" aria-hidden="true">
-            <span class="screen-glow"></span>
-            <span class="anime-lamp"></span>
-            <span class="dust d1"></span>
-            <span class="dust d2"></span>
-            <span class="dust d3"></span>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-anime-room.png" alt="">
         </article>
-
         <article class="room-scene" data-room="music">
-          <img class="room-art" src="assets/lonelyroom-music-room.png" alt="Музыкальная комната Lonelyroom с виниловым проигрывателем, кассетами, колонками, наушниками и оранжевым светом.">
-          <div class="room-effects music-effects" aria-hidden="true">
-            <span class="vinyl-record"></span>
-            <span class="player-indicator"></span>
-            <span class="sound-bars"><i></i><i></i><i></i><i></i></span>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-music-room.png" alt="">
         </article>
-
         <article class="room-scene" data-room="blog">
-          <img class="room-art" src="assets/lonelyroom-blog-room.png" alt="Кабинет Lonelyroom для блога с письменным столом, ноутбуком, заметками, фотографиями и настольной лампой.">
-          <div class="room-effects blog-effects" aria-hidden="true">
-            <span class="laptop-cursor"></span>
-            <span class="paper-sheet sheet-one"></span>
-            <span class="paper-sheet sheet-two"></span>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-blog-room.png" alt="">
         </article>
-
         <article class="room-scene" data-room="friends">
-          <img class="room-art" src="assets/lonelyroom-friends-room.png" alt="Гостиная друзей Lonelyroom с диваном, чайным столиком, пледами, подушками и атмосферой общения.">
-          <div class="room-effects friends-effects" aria-hidden="true">
-            <span class="tea-steam"><i></i><i></i><i></i></span>
-            <span class="curtain-sway curtain-one"></span>
-            <span class="curtain-sway curtain-two"></span>
-            <span class="friend-light"></span>
-          </div>
+          <img class="room-art" src="assets/lonelyroom-friends-room.png" alt="">
         </article>
       </div>
-
-      <div class="rain-layer" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-
-      <div class="lamp-glow" aria-hidden="true"></div>
 
       <div class="transition-curtain" aria-hidden="true"></div>
 
-      <div class="character" id="character" data-character-state="lookingWindow" aria-hidden="true">
-        <img class="character-frame" data-character-frame="reading" src="assets/lonelyroom-character-reading.png" alt="">
-        <img class="character-frame" data-character-frame="tea" src="assets/lonelyroom-character-tea.png" alt="">
-        <img class="character-frame" data-character-frame="laptop" src="assets/lonelyroom-character-laptop.png" alt="">
-        <img class="character-frame is-active" data-character-frame="lookingWindow" src="assets/lonelyroom-character-window.png" alt="">
-      </div>
-
-      <div class="title-card">
-        <p>добро пожаловать домой</p>
-        <h1 id="home-title">Lonelyroom</h1>
-      </div>
-
-      <time class="room-clock" id="room-clock" datetime="">--:--</time>
-
-      <form class="note-pad" id="note-form" aria-label="Оставить записку в комнате">
-        <label for="note-text">записка</label>
-        <div class="note-row">
-          <input id="note-text" type="text" maxlength="64" placeholder="оставить что-то тёплое">
-          <button type="submit">♡</button>
+      <section class="content-room is-active" data-content-room="home" aria-labelledby="home-title">
+        <div class="home-panel">
+          <p class="eyebrow">личное пространство</p>
+          <h1 id="home-title">Lonelyroom</h1>
+          <p>Выбирай комнату сверху: каждая теперь хранит реальные списки, заметки и записи.</p>
+          <div class="home-grid">
+            <button type="button" data-room-target="books">книги</button>
+            <button type="button" data-room-target="anime">аниме</button>
+            <button type="button" data-room-target="music">музыка</button>
+            <button type="button" data-room-target="blog">блог</button>
+            <button type="button" data-room-target="friends">друзья</button>
+          </div>
         </div>
-      </form>
+      </section>
 
-      <div class="house-notes" id="house-notes" aria-label="Записки пользователей">
-        <span>чай вечером</span>
-        <span>дождь за окном</span>
-      </div>
+      <section class="content-room" data-content-room="books" aria-labelledby="books-title">
+        <div class="content-shell">
+          <header class="content-header">
+            <div>
+              <p class="eyebrow">библиотека</p>
+              <h2 id="books-title">Книги</h2>
+            </div>
+            <form class="quick-add" data-add-book>
+              <input name="title" type="text" placeholder="добавить книгу" required>
+              <button type="submit">добавить</button>
+            </form>
+          </header>
 
+          <div class="content-grid books-grid">
+            <section class="content-card span-2">
+              <h3>Читаю сейчас</h3>
+              <div class="book-list" id="reading-list">
+                <article class="book-card" data-book-card>
+                  <div>
+                    <strong>Дом в лазурном море</strong>
+                    <span>Ти Джей Клун</span>
+                  </div>
+                  <button type="button" data-toggle-status>читаю сейчас</button>
+                </article>
+                <article class="book-card" data-book-card>
+                  <div>
+                    <strong>Перед тем как остынет кофе</strong>
+                    <span>Тосикадзу Кавагути</span>
+                  </div>
+                  <button type="button" data-toggle-status>читаю сейчас</button>
+                </article>
+              </div>
+            </section>
+
+            <section class="content-card">
+              <h3>Любимые</h3>
+              <ul class="soft-list">
+                <li>Ходячий замок</li>
+                <li>Маленький принц</li>
+                <li>Норвежский лес</li>
+              </ul>
+            </section>
+
+            <section class="content-card">
+              <h3>Заметки к книгам</h3>
+              <form class="stack-form" data-note-form="book">
+                <textarea name="note" rows="4" placeholder="мысль после чтения..." required></textarea>
+                <button type="submit">сохранить заметку</button>
+              </form>
+              <div class="note-list" data-note-list="book">
+                <p>“Хорошая книга делает комнату тише.”</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-room" data-content-room="anime" aria-labelledby="anime-title">
+        <div class="content-shell">
+          <header class="content-header">
+            <div>
+              <p class="eyebrow">аниме-комната</p>
+              <h2 id="anime-title">Аниме</h2>
+            </div>
+            <form class="quick-add" data-add-anime>
+              <input name="title" type="text" placeholder="добавить тайтл" required>
+              <button type="submit">добавить</button>
+            </form>
+          </header>
+
+          <div class="content-grid three-columns">
+            <section class="content-card anime-column" data-anime-list="current">
+              <h3>Смотрю сейчас</h3>
+              <article class="anime-item">
+                <strong>Frieren</strong>
+                <span>12/28 серий</span>
+                <select aria-label="рейтинг Frieren"><option>★ 10</option><option>★ 9</option><option>★ 8</option></select>
+              </article>
+              <article class="anime-item">
+                <strong>Natsume Yuujinchou</strong>
+                <span>уютный вечер</span>
+                <select aria-label="рейтинг Natsume"><option>★ 9</option><option>★ 10</option><option>★ 8</option></select>
+              </article>
+            </section>
+            <section class="content-card anime-column" data-anime-list="watched">
+              <h3>Просмотрено</h3>
+              <article class="anime-item"><strong>Violet Evergarden</strong><span>★ 10</span></article>
+              <article class="anime-item"><strong>Barakamon</strong><span>★ 9</span></article>
+            </section>
+            <section class="content-card anime-column" data-anime-list="wishlist">
+              <h3>Хочу посмотреть</h3>
+              <article class="anime-item"><strong>Mushishi</strong><span>медленно и тихо</span></article>
+              <article class="anime-item"><strong>Skip and Loafer</strong><span>для доброго дня</span></article>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-room" data-content-room="music" aria-labelledby="music-title">
+        <div class="content-shell">
+          <header class="content-header">
+            <div>
+              <p class="eyebrow">музыкальная</p>
+              <h2 id="music-title">Музыка</h2>
+            </div>
+            <button class="secondary-action" type="button" data-add-track>добавить трек</button>
+          </header>
+
+          <div class="content-grid music-grid">
+            <section class="content-card">
+              <h3>Плейлисты</h3>
+              <div class="playlist-stack">
+                <button type="button" data-playlist>дождь и окно</button>
+                <button type="button" data-playlist>дорога ночью</button>
+                <button type="button" data-playlist>тихий фокус</button>
+              </div>
+            </section>
+            <section class="content-card span-2">
+              <h3>Любимые треки</h3>
+              <div class="track-list" id="track-list">
+                <article class="track-card">
+                  <button type="button" data-play-track>▶</button>
+                  <div><strong>Night Walk</strong><span>lo-fi / rain</span></div>
+                  <span>03:12</span>
+                </article>
+                <article class="track-card">
+                  <button type="button" data-play-track>▶</button>
+                  <div><strong>Window Light</strong><span>ambient</span></div>
+                  <span>04:28</span>
+                </article>
+                <article class="track-card">
+                  <button type="button" data-play-track>▶</button>
+                  <div><strong>Soft Train Home</strong><span>indie</span></div>
+                  <span>02:57</span>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-room" data-content-room="blog" aria-labelledby="blog-title">
+        <div class="content-shell">
+          <header class="content-header">
+            <div>
+              <p class="eyebrow">кабинет</p>
+              <h2 id="blog-title">Блог</h2>
+            </div>
+            <form class="quick-add" data-add-entry>
+              <input name="title" type="text" placeholder="тема записи" required>
+              <button type="submit">создать</button>
+            </form>
+          </header>
+
+          <div class="content-grid blog-grid">
+            <article class="content-card span-2">
+              <h3>Записи</h3>
+              <div class="entry-list" id="entry-list">
+                <article class="blog-entry">
+                  <time>20 июня</time>
+                  <strong>Почему дома легче думать</strong>
+                  <p>Сегодня дождь звучит как метроном. Хочется писать медленно и честно.</p>
+                </article>
+                <article class="blog-entry">
+                  <time>19 июня</time>
+                  <strong>Список маленьких радостей</strong>
+                  <p>Лампа, чистая кружка, новая глава, открытое окно.</p>
+                </article>
+              </div>
+            </article>
+            <section class="content-card">
+              <h3>Дневник</h3>
+              <form class="stack-form" data-note-form="diary">
+                <textarea name="note" rows="7" placeholder="что произошло сегодня?" required></textarea>
+                <button type="submit">записать</button>
+              </form>
+              <div class="note-list" data-note-list="diary"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-room" data-content-room="friends" aria-labelledby="friends-title">
+        <div class="content-shell">
+          <header class="content-header">
+            <div>
+              <p class="eyebrow">гостиная друзей</p>
+              <h2 id="friends-title">Друзья</h2>
+            </div>
+            <form class="quick-add" data-add-friend-message>
+              <input name="message" type="text" placeholder="сообщение в гостевую" required>
+              <button type="submit">оставить</button>
+            </form>
+          </header>
+
+          <div class="content-grid friends-grid">
+            <section class="content-card span-2">
+              <h3>Гостевая книга</h3>
+              <div class="guestbook" id="guestbook">
+                <article><strong>mooncat</strong><p>зашла оставить тёплый чай и плед.</p></article>
+                <article><strong>rainyfox</strong><p>тут очень тихо. вернусь вечером.</p></article>
+              </div>
+            </section>
+            <section class="content-card">
+              <h3>Записки посетителей</h3>
+              <div class="visitor-notes" id="visitor-notes">
+                <span>не забудь отдохнуть</span>
+                <span>лампа горит красиво</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
     </section>
   </main>
 
