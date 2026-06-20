@@ -30,7 +30,7 @@
       <a class="nav-link" href="#inspiration">Вдохновение</a>
       <a class="nav-link" href="#media">Медиа</a>
       <a class="nav-link" href="#creative">Творчество</a>
-      <a class="nav-link" href="#club">Клуб</a>
+      <a class="nav-link" href="#friends">Клуб</a>
     </nav>
   </header>
 
@@ -56,7 +56,119 @@
         твоё место для уютных вечеров,<br>
         любимых историй и вдохновения
       </p>
-      <a class="hero-button" href="#library">открыть двери</a>
+      <a class="hero-button" href="#room">войти в комнату</a>
+    </section>
+
+    <section class="player-room-section section-shell" id="room" aria-labelledby="room-title">
+      <div class="section-heading centered">
+        <p class="eyebrow">главная комната пользователя</p>
+        <h2 id="room-title">Твоя Lonelyroom</h2>
+        <p class="section-note">Мини-комната для отдыха, заметок и маленьких вечерних ритуалов.</p>
+      </div>
+
+      <div class="cozy-room" aria-label="Интерактивная комната Lonelyroom">
+        <div class="room-wall">
+          <div class="room-garland" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <button class="room-item game-window" type="button" data-room-item aria-label="Окно">
+            <span class="tooltip">за окном тихо мерцает город, будто он тоже не спит</span>
+            <span class="room-moon"></span>
+            <span class="room-cloud"></span>
+          </button>
+
+          <button class="room-item bookshelf" type="button" data-room-item aria-label="Книжная полка">
+            <span class="tooltip">на полке лежит книга, которая пахнет дождем и какао</span>
+            <span class="shelf"></span>
+            <span class="book b1"></span>
+            <span class="book b2"></span>
+            <span class="book b3"></span>
+            <span class="book b4"></span>
+          </button>
+
+          <div class="wall-notes" aria-label="Записки в комнате">
+            <span class="pin-note">плейлист на вечер</span>
+            <span class="pin-note small">не забыть чай</span>
+          </div>
+        </div>
+
+        <div class="room-floor">
+          <div class="sofa" aria-label="Кровать-диван">
+            <span class="pillow"></span>
+            <span class="blanket"></span>
+          </div>
+
+          <button class="room-item desk" type="button" data-room-item aria-label="Стол">
+            <span class="tooltip">оставить записку</span>
+            <span class="desk-lamp"></span>
+            <span class="desk-note"></span>
+            <span class="tea-cup"></span>
+          </button>
+
+          <button class="room-item character" type="button" data-room-item aria-label="Персонаж">
+            <span class="tooltip profile-tooltip">
+              <strong>lonelyshaw</strong>
+              настроение: тихий вечер<br>
+              любит: истории, дождь, мягкий свет
+            </span>
+            <span class="head"></span>
+            <span class="hair"></span>
+            <span class="body"></span>
+            <span class="scarf"></span>
+          </button>
+
+          <div class="room-plant plant-a" aria-label="Растение"></div>
+          <div class="room-plant plant-b" aria-label="Растение"></div>
+          <div class="floor-rug" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="friends-section section-shell" id="friends" aria-labelledby="friends-title">
+      <div class="section-heading">
+        <p class="eyebrow">Комнаты друзей</p>
+        <h2 id="friends-title">Заглянуть в гости</h2>
+        <p class="section-note">Пока это демо без backend: введи ник, и комната друга появится прямо здесь.</p>
+      </div>
+
+      <form class="friend-form" id="friend-form">
+        <label for="friend-nick">введи ник друга</label>
+        <div class="friend-controls">
+          <input id="friend-nick" name="friendNick" type="text" placeholder="например, mooncat" autocomplete="off" required>
+          <button type="submit">зайти в комнату</button>
+        </div>
+      </form>
+
+      <div class="friend-room is-hidden" id="friend-room" aria-live="polite">
+        <div class="friend-room-header">
+          <p class="eyebrow">демо-комната</p>
+          <h3>Комната <span id="friend-name">друга</span></h3>
+        </div>
+
+        <div class="friend-room-scene">
+          <div class="friend-wall">
+            <div class="friend-window" aria-hidden="true"></div>
+            <div class="friend-notes-wall" id="friend-notes-wall" aria-label="Записки в комнате друга">
+              <span class="friend-note">рада гостям</span>
+            </div>
+          </div>
+          <div class="friend-floor">
+            <div class="friend-bed" aria-hidden="true"></div>
+            <div class="friend-table" aria-hidden="true">
+              <div class="table-notes" id="table-notes"></div>
+            </div>
+            <div class="friend-avatar" aria-hidden="true"></div>
+            <div class="friend-plant" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <form class="note-form" id="note-form">
+          <label for="friend-note">оставить записку в комнате друга</label>
+          <textarea id="friend-note" name="friendNote" rows="3" maxlength="120" placeholder="напиши что-нибудь теплое..." required></textarea>
+          <button type="submit">оставить записку</button>
+        </form>
+      </div>
     </section>
 
     <section class="doors-section section-shell" id="library" aria-labelledby="doors-title">
