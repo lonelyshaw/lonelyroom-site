@@ -27,6 +27,7 @@
         <button class="nav-pill" type="button" data-open-room="anime">аниме</button>
         <button class="nav-pill" type="button" data-open-room="music">музыка</button>
         <button class="nav-pill" type="button" data-open-room="blog">блог</button>
+        <button class="nav-pill" type="button" data-open-room="friends">друзья</button>
       </nav>
     </header>
 
@@ -66,6 +67,9 @@
             </button>
             <button class="space-door door-blog" type="button" data-open-room="blog">
               <span>блог</span>
+            </button>
+            <button class="space-door door-friends" type="button" data-open-room="friends">
+              <span>друзья</span>
             </button>
           </div>
         </div>
@@ -167,6 +171,23 @@
         <div class="wall-calendar"></div>
         <div class="soft-plant"></div>
         <h2 id="blog-title">блог</h2>
+      </div>
+    </section>
+
+    <section class="section-room room-panel" data-room="friends" aria-labelledby="friends-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene friends-scene">
+        <div class="friend-window"></div>
+        <div class="friend-bed"></div>
+        <div class="friend-desk"></div>
+        <div class="friend-avatar"></div>
+        <div class="friend-pet"></div>
+        <div class="friend-posters">
+          <span>привет</span>
+          <span>вечер</span>
+          <span>чай?</span>
+        </div>
+        <h2 id="friends-title">друзья</h2>
       </div>
     </section>
   </main>

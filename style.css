@@ -365,9 +365,9 @@ button {
   position: absolute;
   left: 50%;
   bottom: -86px;
-  width: min(560px, 52vw);
+  width: min(650px, 58vw);
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   transform: translateX(-50%);
 }
@@ -429,6 +429,11 @@ button {
 .door-blog {
   background:
     linear-gradient(180deg, rgba(255, 229, 208, 0.82), rgba(233, 160, 176, 0.9) 58%, rgba(89, 55, 68, 0.98) 59%);
+}
+
+.door-friends {
+  background:
+    linear-gradient(180deg, rgba(255, 241, 216, 0.84), rgba(140, 198, 157, 0.9) 58%, rgba(54, 82, 76, 0.98) 59%);
 }
 
 .soft-light {
@@ -1023,6 +1028,119 @@ button {
   transform: rotate(28deg);
 }
 
+.friends-scene {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(140, 198, 157, 0.2), transparent 20rem),
+    linear-gradient(180deg, #273b4d 0 58%, #3b3a46 58%);
+}
+
+.friend-window {
+  position: absolute;
+  top: 12%;
+  left: 12%;
+  width: 210px;
+  height: 230px;
+  border: 8px solid #d6a4ac;
+  border-radius: 94px 94px 22px 22px;
+  background:
+    radial-gradient(circle at 44% 26%, #ffe0a6 0 22px, transparent 23px),
+    linear-gradient(180deg, #17284d, #33446a);
+  box-shadow: 0 0 36px rgba(137, 185, 215, 0.24);
+}
+
+.friend-bed {
+  position: absolute;
+  left: 12%;
+  bottom: 17%;
+  width: 270px;
+  height: 118px;
+  border-radius: 40px 40px 22px 22px;
+  background: linear-gradient(180deg, #e7a3a9, #b96f83);
+  box-shadow: 0 24px 34px rgba(7, 8, 18, 0.18);
+}
+
+.friend-desk {
+  position: absolute;
+  right: 13%;
+  bottom: 16%;
+  width: 240px;
+  height: 128px;
+  border-radius: 22px;
+  background: #cc8a78;
+}
+
+.friend-desk::before {
+  content: "";
+  position: absolute;
+  left: 30px;
+  top: -48px;
+  width: 58px;
+  height: 58px;
+  border-radius: 36px 36px 12px 12px;
+  background: var(--gold);
+  box-shadow: 0 0 44px rgba(255, 215, 143, 0.68);
+}
+
+.friend-avatar {
+  position: absolute;
+  left: 50%;
+  bottom: 21%;
+  width: 88px;
+  height: 148px;
+  border-radius: 44px 44px 24px 24px;
+  background: linear-gradient(180deg, #503047 0 22%, #ffd2b4 23% 42%, #89b9d7 43%);
+  transform: translateX(-50%);
+}
+
+.friend-pet {
+  position: absolute;
+  left: calc(50% + 74px);
+  bottom: 18%;
+  width: 86px;
+  height: 44px;
+  border-radius: 60% 44% 42% 48%;
+  background: #17151f;
+}
+
+.friend-pet::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -22px;
+  width: 36px;
+  height: 34px;
+  background: #17151f;
+  clip-path: polygon(0 100%, 12% 18%, 36% 44%, 64% 44%, 88% 18%, 100% 100%);
+}
+
+.friend-posters {
+  position: absolute;
+  right: 14%;
+  top: 16%;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 12px;
+}
+
+.friend-posters span {
+  display: grid;
+  place-items: center;
+  min-width: 86px;
+  min-height: 52px;
+  padding: 8px;
+  color: #5a3948;
+  font-size: 0.72rem;
+  border-radius: 8px 8px 16px 8px;
+  background: #ffe2b9;
+  box-shadow: 0 12px 22px rgba(7, 8, 18, 0.16);
+  transform: rotate(-4deg);
+}
+
+.friend-posters span:nth-child(even) {
+  background: #ffcbd5;
+  transform: rotate(4deg);
+}
+
 @keyframes drift {
   to {
     transform: translateY(26px);
@@ -1086,7 +1204,7 @@ button {
   }
 
   .room-doors {
-    width: min(520px, 72vw);
+    width: min(620px, 82vw);
     bottom: -58px;
   }
 
@@ -1180,15 +1298,15 @@ button {
   .room-doors {
     left: 50%;
     bottom: 252px;
-    width: min(320px, 86vw);
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    width: min(350px, 92vw);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .space-door {
-    min-height: 150px;
+    min-height: 140px;
     padding-inline: 4px;
-    font-size: 0.72rem;
+    font-size: 0.66rem;
   }
 
   .sofa {
@@ -1272,9 +1390,11 @@ button {
   }
 
   .mini-window,
+  .friend-window,
   .reading-chair,
   .speaker.right,
-  .soft-plant {
+  .soft-plant,
+  .friend-desk {
     right: 8%;
     transform: scale(0.78);
     transform-origin: right center;
@@ -1285,8 +1405,27 @@ button {
   }
 
   .record-player,
-  .writing-desk {
+  .writing-desk,
+  .friend-bed {
     width: min(300px, 76vw);
+  }
+
+  .friend-posters {
+    right: 8%;
+    top: 14%;
+    transform: scale(0.82);
+    transform-origin: top right;
+  }
+
+  .friend-avatar {
+    bottom: 24%;
+    transform: translateX(-50%) scale(0.82);
+  }
+
+  .friend-pet {
+    left: calc(50% + 48px);
+    transform: scale(0.82);
+    transform-origin: bottom left;
   }
 }
 
