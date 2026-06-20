@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lonelyroom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="night-sky" aria-hidden="true">
+    <span class="star star-one"></span>
+    <span class="star star-two"></span>
+    <span class="star star-three"></span>
+    <span class="star star-four"></span>
+    <span class="star star-five"></span>
+    <span class="star star-six"></span>
+  </div>
+
+  <div class="room-glow room-glow-left" aria-hidden="true"></div>
+  <div class="room-glow room-glow-right" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Главное меню">
+      <a class="nav-link active" href="#home">☆ Главная</a>
+      <a class="nav-link" href="#library">Библиотека</a>
+      <a class="nav-link" href="#finds">Находки</a>
+      <a class="nav-link" href="#inspiration">Вдохновение</a>
+      <a class="nav-link" href="#media">Медиа</a>
+      <a class="nav-link" href="#creative">Творчество</a>
+      <a class="nav-link" href="#friends">Клуб</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="room-scene" aria-hidden="true">
+        <div class="window">
+          <span class="moon"></span>
+          <span class="window-star"></span>
+          <span class="window-star small"></span>
+        </div>
+        <div class="garland">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="plant plant-left"></div>
+        <div class="plant plant-right"></div>
+        <div class="book-stack"></div>
+      </div>
+
+      <p class="eyebrow">ночная комната для тихих открытий</p>
+      <h1 id="hero-title">Lonelyroom</h1>
+      <p class="hero-subtitle">
+        твоё место для уютных вечеров,<br>
+        любимых историй и вдохновения
+      </p>
+      <a class="hero-button" href="#room">войти в комнату</a>
+    </section>
+
+    <section class="player-room-section section-shell" id="room" aria-labelledby="room-title">
+      <div class="section-heading centered">
+        <p class="eyebrow">главная комната пользователя</p>
+        <h2 id="room-title">Твоя Lonelyroom</h2>
+        <p class="section-note">Мини-комната для отдыха, заметок и маленьких вечерних ритуалов.</p>
+      </div>
+
+      <div class="cozy-room" aria-label="Интерактивная комната Lonelyroom">
+        <div class="room-wall">
+          <div class="room-garland" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <button class="room-item game-window" type="button" data-room-item aria-label="Окно">
+            <span class="tooltip">за окном тихо мерцает город, будто он тоже не спит</span>
+            <span class="room-moon"></span>
+            <span class="room-cloud"></span>
+          </button>
+
+          <button class="room-item bookshelf" type="button" data-room-item aria-label="Книжная полка">
+            <span class="tooltip">на полке лежит книга, которая пахнет дождем и какао</span>
+            <span class="shelf"></span>
+            <span class="book b1"></span>
+            <span class="book b2"></span>
+            <span class="book b3"></span>
+            <span class="book b4"></span>
+          </button>
+
+          <div class="wall-notes" aria-label="Записки в комнате">
+            <span class="pin-note">плейлист на вечер</span>
+            <span class="pin-note small">не забыть чай</span>
+          </div>
+        </div>
+
+        <div class="room-floor">
+          <div class="sofa" aria-label="Кровать-диван">
+            <span class="pillow"></span>
+            <span class="blanket"></span>
+          </div>
+
+          <button class="room-item desk" type="button" data-room-item aria-label="Стол">
+            <span class="tooltip">оставить записку</span>
+            <span class="desk-lamp"></span>
+            <span class="desk-note"></span>
+            <span class="tea-cup"></span>
+          </button>
+
+          <button class="room-item character" type="button" data-room-item aria-label="Персонаж">
+            <span class="tooltip profile-tooltip">
+              <strong>lonelyshaw</strong>
+              настроение: тихий вечер<br>
+              любит: истории, дождь, мягкий свет
+            </span>
+            <span class="head"></span>
+            <span class="hair"></span>
+            <span class="body"></span>
+            <span class="scarf"></span>
+          </button>
+
+          <div class="room-plant plant-a" aria-label="Растение"></div>
+          <div class="room-plant plant-b" aria-label="Растение"></div>
+          <div class="floor-rug" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="friends-section section-shell" id="friends" aria-labelledby="friends-title">
+      <div class="section-heading">
+        <p class="eyebrow">Комнаты друзей</p>
+        <h2 id="friends-title">Заглянуть в гости</h2>
+        <p class="section-note">Пока это демо без backend: введи ник, и комната друга появится прямо здесь.</p>
+      </div>
+
+      <form class="friend-form" id="friend-form">
+        <label for="friend-nick">введи ник друга</label>
+        <div class="friend-controls">
+          <input id="friend-nick" name="friendNick" type="text" placeholder="например, mooncat" autocomplete="off" required>
+          <button type="submit">зайти в комнату</button>
+        </div>
+      </form>
+
+      <div class="friend-room is-hidden" id="friend-room" aria-live="polite">
+        <div class="friend-room-header">
+          <p class="eyebrow">демо-комната</p>
+          <h3>Комната <span id="friend-name">друга</span></h3>
+        </div>
+
+        <div class="friend-room-scene">
+          <div class="friend-wall">
+            <div class="friend-window" aria-hidden="true"></div>
+            <div class="friend-notes-wall" id="friend-notes-wall" aria-label="Записки в комнате друга">
+              <span class="friend-note">рада гостям</span>
+            </div>
+          </div>
+          <div class="friend-floor">
+            <div class="friend-bed" aria-hidden="true"></div>
+            <div class="friend-table" aria-hidden="true">
+              <div class="table-notes" id="table-notes"></div>
+            </div>
+            <div class="friend-avatar" aria-hidden="true"></div>
+            <div class="friend-plant" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <form class="note-form" id="note-form">
+          <label for="friend-note">оставить записку в комнате друга</label>
+          <textarea id="friend-note" name="friendNote" rows="3" maxlength="120" placeholder="напиши что-нибудь теплое..." required></textarea>
+          <button type="submit">оставить записку</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="doors-section section-shell" id="library" aria-labelledby="doors-title">
+      <div class="section-heading">
+        <p class="eyebrow">большие двери-разделы</p>
+        <h2 id="doors-title">Куда заглянем сегодня?</h2>
+      </div>
+
+      <div class="doors-grid">
+        <a class="door-card" href="#media" data-door>
+          <span class="door-icon" aria-hidden="true">🚪</span>
+          <span class="door-title">Фильмы и сериалы</span>
+          <span class="door-text">истории для уютных вечеров</span>
+        </a>
+        <a class="door-card" href="#media" data-door>
+          <span class="door-icon" aria-hidden="true">🚪</span>
+          <span class="door-title">Аниме, манга и мультики</span>
+          <span class="door-text">истории, в которые хочется возвращаться</span>
+        </a>
+        <a class="door-card" href="#media" data-door>
+          <span class="door-icon" aria-hidden="true">🚪</span>
+          <span class="door-title">Книги</span>
+          <span class="door-text">тихая полка для долгих вечеров</span>
+        </a>
+        <a class="door-card" href="#media" data-door>
+          <span class="door-icon" aria-hidden="true">🚪</span>
+          <span class="door-title">Музыка</span>
+          <span class="door-text">звуки дождя, дороги и ночного города</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="media-section section-shell" id="media" aria-labelledby="media-title">
+      <div class="section-heading">
+        <p class="eyebrow">Медиа</p>
+        <h2 id="media-title">Полки настроений</h2>
+        <p class="section-note">Наведи на карточку, чтобы открыть маленькую заметку из комнаты.</p>
+      </div>
+
+      <div class="category" id="finds">
+        <h3>хоррор</h3>
+        <div class="cards-row" aria-label="хоррор">
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Шепот за дверью</h4>
+            <p class="meta">2019 · мистический триллер</p>
+            <p class="description">Легкий холодок, свеча на столе и тайна старого дома без лишней жестокости.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">сериал</p>
+            <h4>Полночные письма</h4>
+            <p class="meta">2021 · уютная мистика</p>
+            <p class="description">Каждая серия похожа на странную записку, найденную между страницами дневника.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">манга</p>
+            <h4>Дом под луной</h4>
+            <p class="meta">2017 · сверхъестественное</p>
+            <p class="description">Тихая история о призраках, которые больше скучают, чем пугают.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>повседневное</h3>
+        <div class="cards-row" aria-label="повседневное">
+          <article class="media-card">
+            <p class="media-kind">аниме</p>
+            <h4>Кафе на углу дождя</h4>
+            <p class="meta">2020 · slice of life</p>
+            <p class="description">Маленькие разговоры, теплый чай и город, который становится добрее к вечеру.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">книга</p>
+            <h4>Тетрадь выходного дня</h4>
+            <p class="meta">2015 · проза</p>
+            <p class="description">Для тех моментов, когда хочется читать о простых вещах и узнавать себя.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">мультфильм</p>
+            <h4>Комната с папоротником</h4>
+            <p class="meta">2022 · семейное</p>
+            <p class="description">Мягкая рисовка, ленивое воскресенье и растение, которое слушает мечты.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>комедии</h3>
+        <div class="cards-row" aria-label="комедии">
+          <article class="media-card">
+            <p class="media-kind">сериал</p>
+            <h4>Соседи сверху</h4>
+            <p class="meta">2018 · комедия</p>
+            <p class="description">Добрый хаос, неловкие встречи на лестнице и смех, который не ломает уют.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">аниме</p>
+            <h4>Магазин чудных мелочей</h4>
+            <p class="meta">2023 · комедия, фэнтези</p>
+            <p class="description">Каждая покупка запускает абсурдное, но очень милое приключение.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Плед напрокат</h4>
+            <p class="meta">2016 · романтическая комедия</p>
+            <p class="description">Смешная история про людей, которые учатся быть честными и не мерзнуть.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category" id="inspiration">
+        <h3>осень</h3>
+        <div class="cards-row" aria-label="осень">
+          <article class="media-card">
+            <p class="media-kind">книга</p>
+            <h4>Листья в карманах</h4>
+            <p class="meta">2014 · лирическая проза</p>
+            <p class="description">Пахнет корицей, мокрым асфальтом и письмами, которые решились отправить.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">плейлист</p>
+            <h4>Сентябрь на кассете</h4>
+            <p class="meta">2024 · инди, lo-fi</p>
+            <p class="description">Треки для прогулки в шарфе и возвращения домой под желтые фонари.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Почтовый ящик октября</h4>
+            <p class="meta">2012 · драма</p>
+            <p class="description">Неспешная история о взрослении, городе и случайных встречах у витрин.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>дорога</h3>
+        <div class="cards-row" aria-label="дорога">
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Ночной автобус</h4>
+            <p class="meta">2021 · road movie</p>
+            <p class="description">Окна отражают огни трассы, а попутчики оказываются важнее пункта назначения.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">музыка</p>
+            <h4>Дорога после дождя</h4>
+            <p class="meta">2020 · ambient</p>
+            <p class="description">Для поездок без спешки, когда город остается позади и мысли становятся тише.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">аниме</p>
+            <h4>Станция у моря</h4>
+            <p class="meta">2019 · приключение</p>
+            <p class="description">Путешествие на электричках, соленый ветер и новые друзья на каждой остановке.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>одиночество</h3>
+        <div class="cards-row" aria-label="одиночество">
+          <article class="media-card">
+            <p class="media-kind">книга</p>
+            <h4>Один столик у окна</h4>
+            <p class="meta">2018 · современная проза</p>
+            <p class="description">Не грустная, а бережная история о том, как услышать собственный голос.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Свет в соседнем окне</h4>
+            <p class="meta">2017 · драма</p>
+            <p class="description">Про тихую связь между людьми, которые долго думали, что никому не нужны.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">плейлист</p>
+            <h4>Не выключай лампу</h4>
+            <p class="meta">2024 · dream pop</p>
+            <p class="description">Мягкие песни для вечеров, когда одиночество превращается в пространство.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category" id="creative">
+        <h3>для вечера</h3>
+        <div class="cards-row" aria-label="для вечера">
+          <article class="media-card">
+            <p class="media-kind">фильм</p>
+            <h4>Пирог с черникой</h4>
+            <p class="meta">2023 · уютная драма</p>
+            <p class="description">История, которую хочется смотреть в носках, с чашкой какао и выключенным телефоном.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">аниме</p>
+            <h4>Звезды на потолке</h4>
+            <p class="meta">2022 · романтика</p>
+            <p class="description">Нежная рисовка, тихие признания и немного магии в обычной комнате.</p>
+          </article>
+          <article class="media-card">
+            <p class="media-kind">книга</p>
+            <h4>Пока чай остывает</h4>
+            <p class="meta">2019 · рассказы</p>
+            <p class="description">Короткие главы для вечера, когда хочется закончить день мягко.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="club">
+    <p class="footer-quote">“иногда лучший план — это остаться дома”</p>
+    <div class="touch-card">
+      <p>stay in touch ♡</p>
+      <span>пиши письма комнате, сохраняй находки, возвращайся за светом</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
