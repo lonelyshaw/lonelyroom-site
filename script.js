@@ -1,14 +1,13 @@
 const roomButtons = document.querySelectorAll("[data-open-room]");
-const roomPanels = document.querySelectorAll("[data-room]");
+const roomScreens = document.querySelectorAll("[data-room]");
 const navPills = document.querySelectorAll(".nav-pill");
-const roomObjects = document.querySelectorAll(".room-object");
 const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-text");
 const tableNotes = document.querySelector("#table-notes");
 
 const openRoom = (roomName) => {
-  roomPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.room === roomName);
+  roomScreens.forEach((screen) => {
+    screen.classList.toggle("is-active", screen.dataset.room === roomName);
   });
 
   navPills.forEach((pill) => {
@@ -19,22 +18,6 @@ const openRoom = (roomName) => {
 roomButtons.forEach((button) => {
   button.addEventListener("click", () => {
     openRoom(button.dataset.openRoom);
-  });
-});
-
-roomObjects.forEach((object) => {
-  object.addEventListener("click", () => {
-    roomObjects.forEach((item) => {
-      if (item !== object) {
-        item.classList.remove("is-open");
-      }
-    });
-
-    object.classList.toggle("is-open");
-  });
-
-  object.addEventListener("blur", () => {
-    object.classList.remove("is-open");
   });
 });
 
