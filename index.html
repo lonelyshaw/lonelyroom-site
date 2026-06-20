@@ -40,36 +40,59 @@
 
           <button class="weather-window room-object" type="button" aria-label="Окно с погодой">
             <span class="tooltip">за окном тихий дождь и тёплый свет окон</span>
+            <span class="curtain curtain-left"></span>
+            <span class="curtain curtain-right"></span>
             <span class="moon"></span>
+            <span class="city-lights"></span>
             <span class="rain r1"></span>
             <span class="rain r2"></span>
             <span class="rain r3"></span>
+            <span class="window-sill">
+              <span class="tiny-plant"></span>
+              <span class="crystal"></span>
+            </span>
           </button>
 
           <button class="bookshelf room-object" type="button" data-open-room="books" aria-label="Книжная полка">
             <span class="tooltip">открыть комнату книг</span>
+            <span class="shelf-line top"></span>
+            <span class="shelf-line mid"></span>
             <span class="book b1"></span>
             <span class="book b2"></span>
             <span class="book b3"></span>
             <span class="book b4"></span>
             <span class="book b5"></span>
+            <span class="book b6"></span>
+            <span class="shelf-cat"></span>
+            <span class="shelf-candle"></span>
+            <span class="trailing-plant"></span>
           </button>
 
           <div class="room-doors" aria-label="Двери в разделы">
             <button class="space-door door-books" type="button" data-open-room="books">
+              <span class="door-icon" aria-hidden="true">⌑</span>
               <span>книги</span>
+              <span class="door-preview shelf-preview"></span>
             </button>
             <button class="space-door door-anime" type="button" data-open-room="anime">
+              <span class="door-icon" aria-hidden="true">☁</span>
               <span>аниме</span>
+              <span class="door-preview sky-preview"></span>
             </button>
             <button class="space-door door-music" type="button" data-open-room="music">
+              <span class="door-icon" aria-hidden="true">♪</span>
               <span>музыка</span>
+              <span class="door-preview record-preview"></span>
             </button>
             <button class="space-door door-blog" type="button" data-open-room="blog">
+              <span class="door-icon" aria-hidden="true">✎</span>
               <span>блог</span>
+              <span class="door-preview note-preview"></span>
             </button>
             <button class="space-door door-friends" type="button" data-open-room="friends">
+              <span class="door-icon" aria-hidden="true">♡</span>
               <span>друзья</span>
+              <span class="door-preview friend-preview"></span>
             </button>
           </div>
         </div>
@@ -78,14 +101,23 @@
           <div class="soft-light" aria-hidden="true"></div>
           <div class="sofa" aria-label="мягкий диван">
             <span class="pillow"></span>
+            <span class="pillow round"></span>
             <span class="blanket"></span>
+            <span class="sofa-arm left"></span>
+            <span class="sofa-arm right"></span>
+            <span class="stitch-line"></span>
           </div>
 
           <button class="desk room-object" type="button" aria-label="Стол для записок">
             <span class="tooltip">оставить записку</span>
             <span class="lamp"></span>
+            <span class="lamp-stand"></span>
             <span class="desk-paper"></span>
+            <span class="notebook"></span>
+            <span class="pen"></span>
             <span class="tea"></span>
+            <span class="drawer left"></span>
+            <span class="drawer right"></span>
           </button>
 
           <button class="avatar room-object" type="button" aria-label="Персонаж пользователя">
@@ -96,10 +128,19 @@
             </span>
             <span class="hair"></span>
             <span class="face"></span>
+            <span class="eyes"></span>
+            <span class="cheeks"></span>
             <span class="body"></span>
+            <span class="sleeve left"></span>
+            <span class="sleeve right"></span>
+            <span class="legs"></span>
           </button>
 
-          <div class="pet" aria-label="питомец рядом"></div>
+          <div class="pet" aria-label="питомец рядом">
+            <span class="pet-face"></span>
+            <span class="pet-paw paw-one"></span>
+            <span class="pet-paw paw-two"></span>
+          </div>
           <div class="plant p-left" aria-label="растение"></div>
           <div class="plant p-right" aria-label="растение"></div>
           <div class="rug" aria-hidden="true"></div>
