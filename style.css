@@ -38,7 +38,7 @@ button {
   min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: 76px 16px 18px;
+  padding: 76px 16px calc(18px + env(safe-area-inset-bottom));
   isolation: isolate;
 }
 
@@ -155,28 +155,15 @@ button {
     radial-gradient(circle at 50% 50%, transparent 54%, rgba(4, 5, 12, 0.26));
 }
 
-.house-camera {
-  --focus-x: 50%;
-  --focus-y: 50%;
-  --zoom: 1;
+.house-background {
   position: absolute;
   inset: 0;
-  transform-origin: var(--focus-x) var(--focus-y);
-  transform: scale(var(--zoom));
-  transition: transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 720ms ease;
 }
-
-.house-camera[data-current-room="books"] { --focus-x: 18%; --focus-y: 52%; --zoom: 1.55; }
-.house-camera[data-current-room="anime"] { --focus-x: 38%; --focus-y: 51%; --zoom: 1.55; }
-.house-camera[data-current-room="music"] { --focus-x: 57%; --focus-y: 52%; --zoom: 1.55; }
-.house-camera[data-current-room="blog"] { --focus-x: 75%; --focus-y: 50%; --zoom: 1.55; }
-.house-camera[data-current-room="friends"] { --focus-x: 86%; --focus-y: 58%; --zoom: 1.5; }
 
 .house-art {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
   display: block;
 }
 
@@ -184,7 +171,7 @@ button {
 .fairy-lights,
 .room-hotspots,
 .door-glow,
-.cat-breath {
+.sleeping-cat {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -198,20 +185,27 @@ button {
 
 .rain-layer span {
   position: absolute;
-  top: -18%;
+  top: -24%;
   width: 1px;
-  height: 18%;
+  height: var(--rain-height, 18%);
   border-radius: 999px;
-  background: linear-gradient(180deg, transparent, rgba(173, 213, 241, 0.7), transparent);
-  animation: rainFall 1.35s linear infinite;
+  background: linear-gradient(180deg, transparent, rgba(178, 218, 246, 0.68), transparent);
+  animation: rainFall var(--rain-speed, 1.6s) linear infinite;
+  animation-delay: var(--rain-delay, 0s);
 }
 
-.rain-layer span:nth-child(1) { left: 11%; animation-delay: -0.2s; }
-.rain-layer span:nth-child(2) { left: 23%; animation-delay: -0.8s; }
-.rain-layer span:nth-child(3) { left: 42%; animation-delay: -0.4s; }
-.rain-layer span:nth-child(4) { left: 63%; animation-delay: -1s; }
-.rain-layer span:nth-child(5) { left: 78%; animation-delay: -0.6s; }
-.rain-layer span:nth-child(6) { left: 91%; animation-delay: -1.2s; }
+.rain-layer span:nth-child(1) { left: 6%; --rain-speed: 1.35s; --rain-delay: -0.2s; --rain-height: 18%; }
+.rain-layer span:nth-child(2) { left: 14%; --rain-speed: 1.9s; --rain-delay: -1s; --rain-height: 24%; }
+.rain-layer span:nth-child(3) { left: 23%; --rain-speed: 1.55s; --rain-delay: -0.7s; --rain-height: 20%; }
+.rain-layer span:nth-child(4) { left: 31%; --rain-speed: 2.1s; --rain-delay: -1.4s; --rain-height: 26%; }
+.rain-layer span:nth-child(5) { left: 42%; --rain-speed: 1.45s; --rain-delay: -0.4s; --rain-height: 18%; }
+.rain-layer span:nth-child(6) { left: 50%; --rain-speed: 1.8s; --rain-delay: -1.2s; --rain-height: 22%; }
+.rain-layer span:nth-child(7) { left: 59%; --rain-speed: 1.3s; --rain-delay: -0.8s; --rain-height: 17%; }
+.rain-layer span:nth-child(8) { left: 66%; --rain-speed: 2.25s; --rain-delay: -1.7s; --rain-height: 28%; }
+.rain-layer span:nth-child(9) { left: 74%; --rain-speed: 1.6s; --rain-delay: -0.1s; --rain-height: 20%; }
+.rain-layer span:nth-child(10) { left: 82%; --rain-speed: 1.95s; --rain-delay: -1.1s; --rain-height: 24%; }
+.rain-layer span:nth-child(11) { left: 90%; --rain-speed: 1.4s; --rain-delay: -0.5s; --rain-height: 18%; }
+.rain-layer span:nth-child(12) { left: 96%; --rain-speed: 2.05s; --rain-delay: -1.5s; --rain-height: 25%; }
 
 .fairy-lights {
   z-index: 2;
@@ -236,7 +230,7 @@ button {
 .fairy-lights span:nth-child(6) { left: 79%; top: 12%; background: #ffc7d1; animation-delay: -1s; }
 .fairy-lights span:nth-child(7) { left: 90%; top: 17%; animation-delay: -2.2s; }
 
-.cat-breath {
+.sleeping-cat {
   left: 48%;
   top: 66%;
   width: 9%;
@@ -246,8 +240,54 @@ button {
   animation: catSleep 3.2s ease-in-out infinite;
 }
 
+.character {
+  position: absolute;
+  left: 22%;
+  bottom: 20%;
+  z-index: 6;
+  width: clamp(68px, 8vw, 106px);
+  aspect-ratio: 1 / 1.32;
+  pointer-events: none;
+  opacity: 0.9;
+  filter: drop-shadow(0 12px 18px rgba(3, 5, 13, 0.26));
+  animation: characterBreath 5s ease-in-out infinite;
+  overflow: hidden;
+  border-radius: 36%;
+}
+
+.character-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 900ms ease;
+}
+
+.character-frame.is-active {
+  opacity: 1;
+}
+
+.character[data-character-state="reading"] {
+  animation-name: characterRead;
+}
+
+.character[data-character-state="tea"] {
+  animation-name: characterTea;
+}
+
+.character[data-character-state="laptop"] {
+  animation-name: characterLaptop;
+}
+
+.character[data-character-state="lookingWindow"] {
+  animation-name: characterLook;
+}
+
 .room-hotspots {
-  z-index: 5;
+  z-index: 7;
   pointer-events: none;
 }
 
@@ -291,8 +331,9 @@ button {
 .hotspot-friends { left: 82%; top: 34%; width: 15%; height: 42%; }
 
 .door-glow {
-  z-index: 4;
+  z-index: 5;
   opacity: 0;
+  pointer-events: none;
   background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255, 217, 138, 0.24), transparent 16%);
   transition: opacity 260ms ease;
 }
@@ -312,13 +353,14 @@ button {
   transition: opacity 320ms ease, transform 320ms ease;
 }
 
-.house-shell.is-focused .title-card {
+.house-shell.is-section-open .title-card {
   opacity: 0;
   transform: translate(-50%, -10px);
 }
 
 .title-card p,
-.room-label span {
+.room-label span,
+.section-kicker {
   margin: 0 0 6px;
   color: rgba(255, 241, 216, 0.82);
   font-size: 0.72rem;
@@ -326,7 +368,8 @@ button {
   text-shadow: 0 2px 16px rgba(3, 5, 13, 0.62);
 }
 
-.title-card h1 {
+.title-card h1,
+.section-panel h2 {
   margin: 0;
   color: var(--cream);
   font-family: "Caveat", cursive;
@@ -335,11 +378,63 @@ button {
   text-shadow: 0 0 30px rgba(255, 241, 216, 0.38), 0 8px 26px rgba(3, 5, 13, 0.4);
 }
 
+.section-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.section-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(520px, calc(100% - 48px));
+  padding: 24px;
+  border: 1px solid rgba(255, 241, 216, 0.18);
+  border-radius: 28px;
+  background: rgba(7, 12, 28, 0.48);
+  box-shadow: 0 24px 64px rgba(3, 5, 13, 0.34);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-50% + 24px));
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.section-panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.section-panel p:not(.section-kicker) {
+  margin: 18px 0 0;
+  color: rgba(255, 241, 216, 0.84);
+  line-height: 1.7;
+}
+
+.section-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.section-tags span {
+  padding: 8px 10px;
+  color: rgba(255, 241, 216, 0.82);
+  font-size: 0.76rem;
+  border: 1px solid rgba(255, 241, 216, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 241, 216, 0.08);
+}
+
 .room-label {
   position: absolute;
   left: 24px;
-  bottom: 24px;
-  z-index: 9;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 12;
   display: grid;
   gap: 2px;
   padding: 14px 16px;
@@ -359,8 +454,8 @@ button {
 .note-pad {
   position: absolute;
   right: 24px;
-  bottom: 24px;
-  z-index: 9;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 12;
   width: min(300px, 28vw);
   padding: 13px;
   border: 1px solid rgba(255, 241, 216, 0.18);
@@ -444,12 +539,12 @@ button {
   position: absolute;
   left: 24px;
   top: 24px;
-  z-index: 9;
+  z-index: 12;
   opacity: 0;
   pointer-events: none;
 }
 
-.house-shell.is-focused .home-button {
+.house-shell.is-section-open .home-button {
   opacity: 1;
   pointer-events: auto;
 }
@@ -459,7 +554,7 @@ button {
 }
 
 @keyframes rainFall {
-  to { transform: translateY(760%); }
+  to { transform: translateY(820%); }
 }
 
 @keyframes twinkle {
@@ -470,6 +565,32 @@ button {
 @keyframes catSleep {
   0%, 100% { opacity: 0.15; transform: scale(0.92); }
   50% { opacity: 0.42; transform: scale(1.08); }
+}
+
+@keyframes characterBreath {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+@keyframes characterRead {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(3px) rotate(0.7deg); }
+}
+
+@keyframes characterTea {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  45% { transform: translateY(1px) rotate(-1deg); }
+  60% { transform: translateY(-2px) rotate(-1.8deg); }
+}
+
+@keyframes characterLaptop {
+  0%, 100% { transform: translateY(0); filter: drop-shadow(0 18px 20px rgba(3, 5, 13, 0.34)); }
+  50% { transform: translateY(2px); filter: drop-shadow(0 18px 24px rgba(137, 185, 215, 0.22)); }
+}
+
+@keyframes characterLook {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(2px) translateX(-2px); }
 }
 
 @media (max-width: 980px) {
@@ -498,7 +619,7 @@ button {
 
 @media (max-width: 680px) {
   .world {
-    padding: 118px 8px 10px;
+    padding: 118px 8px calc(10px + env(safe-area-inset-bottom));
   }
 
   .topbar {
@@ -517,20 +638,18 @@ button {
     border-radius: 28px;
   }
 
-  .house-camera[data-current-room="books"],
-  .house-camera[data-current-room="anime"],
-  .house-camera[data-current-room="music"],
-  .house-camera[data-current-room="blog"],
-  .house-camera[data-current-room="friends"] {
-    --zoom: 1.9;
-  }
-
   .title-card {
     top: 78px;
   }
 
   .title-card h1 {
     font-size: clamp(4.2rem, 22vw, 6rem);
+  }
+
+  .character {
+    left: 17%;
+    bottom: 26%;
+    width: clamp(70px, 24vw, 96px);
   }
 
   .room-hotspot {
@@ -543,22 +662,32 @@ button {
   .hotspot-blog { left: 61%; top: 36%; width: 17%; height: 33%; }
   .hotspot-friends { left: 79%; top: 36%; width: 18%; height: 33%; }
 
+  .section-panel {
+    top: 47%;
+    width: calc(100% - 32px);
+    padding: 20px;
+  }
+
+  .section-panel h2 {
+    font-size: clamp(3.4rem, 18vw, 5.2rem);
+  }
+
   .note-pad {
     left: 16px;
     right: auto;
-    bottom: 18px;
+    bottom: calc(18px + env(safe-area-inset-bottom));
     width: min(280px, calc(100% - 32px));
   }
 
   .room-label {
     left: 16px;
-    bottom: 136px;
+    bottom: calc(136px + env(safe-area-inset-bottom));
   }
 
   .house-notes {
     right: 18px;
     top: auto;
-    bottom: 136px;
+    bottom: calc(136px + env(safe-area-inset-bottom));
     max-width: 180px;
   }
 

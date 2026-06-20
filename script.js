@@ -1,15 +1,19 @@
-const focusButtons = document.querySelectorAll("[data-focus-room]");
+const sectionButtons = document.querySelectorAll("[data-section]");
 const navPills = document.querySelectorAll(".nav-pill");
 const houseShell = document.querySelector(".house-shell");
-const houseCamera = document.querySelector(".house-camera");
+const panels = document.querySelectorAll("[data-panel]");
 const hotspots = document.querySelectorAll(".room-hotspot");
 const doorGlow = document.querySelector(".door-glow");
 const roomName = document.querySelector("#room-name");
 const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-text");
 const houseNotes = document.querySelector("#house-notes");
+const character = document.querySelector("#character");
+const characterFrames = document.querySelectorAll("[data-character-frame]");
 
-const roomLabels = {
+let activeSection = "home";
+
+const sectionLabels = {
   home: "дом",
   books: "библиотека",
   anime: "аниме-комната",
@@ -27,28 +31,34 @@ const glowPoints = {
   friends: ["88%", "57%"],
 };
 
-const focusRoom = (room) => {
-  houseCamera.dataset.currentRoom = room;
-  houseShell.classList.toggle("is-focused", room !== "home");
-  roomName.textContent = roomLabels[room] || roomLabels.home;
+const setActiveSection = (section) => {
+  activeSection = section;
+  const isHome = activeSection === "home";
+
+  houseShell.classList.toggle("is-section-open", !isHome);
+  roomName.textContent = sectionLabels[activeSection] || sectionLabels.home;
 
   navPills.forEach((pill) => {
-    pill.classList.toggle("is-active", pill.dataset.focusRoom === room);
+    pill.classList.toggle("is-active", pill.dataset.section === activeSection);
+  });
+
+  panels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.panel === activeSection);
   });
 
   hotspots.forEach((hotspot) => {
-    hotspot.classList.toggle("is-open", hotspot.dataset.focusRoom === room);
+    hotspot.classList.toggle("is-open", hotspot.dataset.section === activeSection);
   });
 
-  const [x, y] = glowPoints[room] || glowPoints.home;
+  const [x, y] = glowPoints[activeSection] || glowPoints.home;
   doorGlow.style.setProperty("--glow-x", x);
   doorGlow.style.setProperty("--glow-y", y);
-  doorGlow.classList.toggle("is-visible", room !== "home");
+  doorGlow.classList.toggle("is-visible", !isHome);
 };
 
-focusButtons.forEach((button) => {
+sectionButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    focusRoom(button.dataset.focusRoom);
+    setActiveSection(button.dataset.section);
   });
 });
 
@@ -67,4 +77,36 @@ noteForm.addEventListener("submit", (event) => {
   houseNotes.append(note);
   noteInput.value = "";
   noteInput.focus();
+});
+
+const characterStates = ["reading", "tea", "laptop", "lookingWindow"];
+let characterTimer;
+
+const setCharacterState = (state) => {
+  character.dataset.characterState = state;
+
+  characterFrames.forEach((frame) => {
+    frame.classList.toggle("is-active", frame.dataset.characterFrame === state);
+  });
+};
+
+const scheduleCharacterIdle = () => {
+  const nextDelay = 15000 + Math.random() * 15000;
+
+  characterTimer = window.setTimeout(() => {
+    const currentState = character.dataset.characterState;
+    const nextStates = characterStates.filter((state) => state !== currentState);
+    const nextState = nextStates[Math.floor(Math.random() * nextStates.length)];
+
+    setCharacterState(nextState);
+    scheduleCharacterIdle();
+  }, nextDelay);
+};
+
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  scheduleCharacterIdle();
+}
+
+window.addEventListener("beforeunload", () => {
+  window.clearTimeout(characterTimer);
 });
