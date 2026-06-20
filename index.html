@@ -6,7 +6,7 @@
   <title>Lonelyroom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Comfortaa:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,32 +31,88 @@
       <a class="nav-link" href="#media">Медиа</a>
       <a class="nav-link" href="#creative">Творчество</a>
       <a class="nav-link" href="#friends">Клуб</a>
+      <span class="nav-actions" aria-hidden="true">
+        <span>☆</span>
+        <span>✉</span>
+      </span>
     </nav>
   </header>
 
   <main id="home">
-    <section class="hero section-shell" aria-labelledby="hero-title">
-      <div class="room-scene" aria-hidden="true">
-        <div class="window">
-          <span class="moon"></span>
-          <span class="window-star"></span>
-          <span class="window-star small"></span>
+    <section class="hero story-home" aria-labelledby="hero-title">
+      <div class="storybook-scene" aria-hidden="true">
+        <div class="curtain"></div>
+        <div class="left-shelf">
+          <span class="shelf-plant"></span>
+          <span class="shelf-books"></span>
+          <span class="tiny-screen"></span>
         </div>
-        <div class="garland">
-          <span></span><span></span><span></span><span></span><span></span>
+        <div class="right-shelf">
+          <span class="cat-poster"></span>
+          <span class="fish-bowl"></span>
+          <span class="shelf-books"></span>
         </div>
-        <div class="plant plant-left"></div>
-        <div class="plant plant-right"></div>
-        <div class="book-stack"></div>
+        <div class="ceiling-garland">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hanging-charm"></div>
+        <div class="night-cloud cloud-one"></div>
+        <div class="night-cloud cloud-two"></div>
+        <div class="floor-desk">
+          <span class="open-letter"></span>
+          <span class="pen"></span>
+        </div>
+        <div class="sleepy-cat"></div>
+        <div class="mug"></div>
       </div>
 
-      <p class="eyebrow">ночная комната для тихих открытий</p>
-      <h1 id="hero-title">Lonelyroom</h1>
-      <p class="hero-subtitle">
-        твоё место для уютных вечеров,<br>
-        любимых историй и вдохновения
-      </p>
-      <a class="hero-button" href="#room">войти в комнату</a>
+      <div class="hero-copy">
+        <p class="eyebrow">тёплая ночная комната</p>
+        <h1 id="hero-title">Lonelyroom</h1>
+        <p class="hero-subtitle">
+          твоё место для уютных вечеров,<br>
+          любимых историй и вдохновения
+        </p>
+      </div>
+
+      <div class="portal-row" aria-label="Главные двери Lonelyroom">
+        <a class="portal portal-movies" href="#media" data-door>
+          <span class="portal-top">
+            <span class="portal-icon">▣</span>
+            <span class="portal-title">фильмы<br>и сериалы</span>
+            <span class="portal-dots">··············</span>
+            <span class="portal-text">истории для<br>уютных вечеров</span>
+          </span>
+          <span class="portal-room">
+            <span class="portal-lamp"></span>
+            <span class="portal-sofa"></span>
+            <span class="portal-tv"></span>
+            <span class="portal-rug"></span>
+          </span>
+          <span class="open-door left-door"></span>
+        </a>
+
+        <a class="portal portal-anime" href="#media" data-door>
+          <span class="portal-top">
+            <span class="portal-icon">☁</span>
+            <span class="portal-title">аниме, манга<br>и мультики</span>
+            <span class="portal-dots">··············</span>
+            <span class="portal-text">истории, в которые<br>хочется возвращаться</span>
+          </span>
+          <span class="portal-room">
+            <span class="portal-window-view"></span>
+            <span class="portal-figure"></span>
+            <span class="portal-books"></span>
+            <span class="portal-totoro">◔</span>
+          </span>
+          <span class="open-door right-door"></span>
+        </a>
+      </div>
+
+      <div class="home-quote">
+        <span>“иногда лучший план —<br>это остаться дома”</span>
+        <a href="#room" aria-label="прокрутить к комнате">↓</a>
+      </div>
     </section>
 
     <section class="player-room-section section-shell" id="room" aria-labelledby="room-title">
