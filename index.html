@@ -27,6 +27,10 @@
       <div class="room-stage">
         <article class="room-scene is-active" data-room="home">
           <img class="room-art" src="assets/lonelyroom-home-hall.png" alt="Центральный коридор дома Lonelyroom с тёплым светом, дождём за окном и входом в уютный дом.">
+          <div class="room-effects home-effects" aria-hidden="true">
+            <span class="hall-lamp lamp-one"></span>
+            <span class="hall-lamp lamp-two"></span>
+          </div>
           <div class="door-map" aria-label="Двери в комнаты">
             <button class="door-entry entry-books" type="button" data-room-target="books">библиотека</button>
             <button class="door-entry entry-anime" type="button" data-room-target="anime">аниме</button>
@@ -38,22 +42,50 @@
 
         <article class="room-scene" data-room="books">
           <img class="room-art" src="assets/lonelyroom-books-room.png" alt="Библиотека Lonelyroom с книжными шкафами до потолка, креслом, пледом, лампой и стопками книг.">
+          <div class="room-effects books-effects" aria-hidden="true">
+            <span class="page-turn"></span>
+            <span class="candle-flame flame-one"></span>
+            <span class="candle-flame flame-two"></span>
+          </div>
         </article>
 
         <article class="room-scene" data-room="anime">
           <img class="room-art" src="assets/lonelyroom-anime-room.png" alt="Аниме-комната Lonelyroom с экраном, мангой, фигурками, подушками и фиолетово-синей подсветкой.">
+          <div class="room-effects anime-effects" aria-hidden="true">
+            <span class="screen-glow"></span>
+            <span class="anime-lamp"></span>
+            <span class="dust d1"></span>
+            <span class="dust d2"></span>
+            <span class="dust d3"></span>
+          </div>
         </article>
 
         <article class="room-scene" data-room="music">
           <img class="room-art" src="assets/lonelyroom-music-room.png" alt="Музыкальная комната Lonelyroom с виниловым проигрывателем, кассетами, колонками, наушниками и оранжевым светом.">
+          <div class="room-effects music-effects" aria-hidden="true">
+            <span class="vinyl-record"></span>
+            <span class="player-indicator"></span>
+            <span class="sound-bars"><i></i><i></i><i></i><i></i></span>
+          </div>
         </article>
 
         <article class="room-scene" data-room="blog">
           <img class="room-art" src="assets/lonelyroom-blog-room.png" alt="Кабинет Lonelyroom для блога с письменным столом, ноутбуком, заметками, фотографиями и настольной лампой.">
+          <div class="room-effects blog-effects" aria-hidden="true">
+            <span class="laptop-cursor"></span>
+            <span class="paper-sheet sheet-one"></span>
+            <span class="paper-sheet sheet-two"></span>
+          </div>
         </article>
 
         <article class="room-scene" data-room="friends">
           <img class="room-art" src="assets/lonelyroom-friends-room.png" alt="Гостиная друзей Lonelyroom с диваном, чайным столиком, пледами, подушками и атмосферой общения.">
+          <div class="room-effects friends-effects" aria-hidden="true">
+            <span class="tea-steam"><i></i><i></i><i></i></span>
+            <span class="curtain-sway curtain-one"></span>
+            <span class="curtain-sway curtain-two"></span>
+            <span class="friend-light"></span>
+          </div>
         </article>
       </div>
 
@@ -78,11 +110,6 @@
         <h1 id="home-title">Lonelyroom</h1>
       </div>
 
-      <div class="room-label" aria-live="polite">
-        <span id="room-kicker">сейчас</span>
-        <strong id="room-name">дом</strong>
-      </div>
-
       <time class="room-clock" id="room-clock" datetime="">--:--</time>
 
       <form class="note-pad" id="note-form" aria-label="Оставить записку в комнате">
@@ -98,9 +125,6 @@
         <span>дождь за окном</span>
       </div>
 
-      <div class="tea-steam" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
     </section>
   </main>
 

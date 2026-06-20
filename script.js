@@ -2,7 +2,6 @@ const roomButtons = document.querySelectorAll("[data-room-target]");
 const navPills = document.querySelectorAll(".nav-pill");
 const houseShell = document.querySelector(".house-shell");
 const roomScenes = document.querySelectorAll("[data-room]");
-const roomName = document.querySelector("#room-name");
 const roomClock = document.querySelector("#room-clock");
 const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-text");
@@ -12,15 +11,6 @@ const characterFrames = document.querySelectorAll("[data-character-frame]");
 
 let activeRoom = "home";
 let isTransitioning = false;
-
-const roomLabels = {
-  home: "дом",
-  books: "библиотека",
-  anime: "аниме-комната",
-  music: "музыкальная",
-  blog: "кабинет",
-  friends: "гостиная друзей",
-};
 
 const roomCharacterStates = {
   home: "lookingWindow",
@@ -50,7 +40,6 @@ const showRoom = (room) => {
   window.setTimeout(() => {
     activeRoom = room;
     houseShell.dataset.activeRoom = activeRoom;
-    roomName.textContent = roomLabels[activeRoom] || roomLabels.home;
     setCharacterState(roomCharacterStates[activeRoom] || "lookingWindow");
 
     roomScenes.forEach((scene) => {
@@ -102,5 +91,20 @@ const updateClock = () => {
   roomClock.dateTime = now.toISOString();
 };
 
+const updateTimeAtmosphere = () => {
+  const hour = new Date().getHours();
+  let timeOfDay = "night";
+
+  if (hour >= 6 && hour < 17) {
+    timeOfDay = "morning";
+  } else if (hour >= 17 && hour < 23) {
+    timeOfDay = "evening";
+  }
+
+  document.body.dataset.time = timeOfDay;
+};
+
 updateClock();
+updateTimeAtmosphere();
 window.setInterval(updateClock, 1000);
+window.setInterval(updateTimeAtmosphere, 60000);
