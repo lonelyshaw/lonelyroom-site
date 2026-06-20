@@ -6,441 +6,191 @@
   <title>Lonelyroom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Comfortaa:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="night-sky" aria-hidden="true">
-    <span class="star star-one"></span>
-    <span class="star star-two"></span>
-    <span class="star star-three"></span>
-    <span class="star star-four"></span>
-    <span class="star star-five"></span>
-    <span class="star star-six"></span>
+  <div class="sky" aria-hidden="true">
+    <span class="star s1"></span>
+    <span class="star s2"></span>
+    <span class="star s3"></span>
+    <span class="star s4"></span>
+    <span class="star s5"></span>
   </div>
 
-  <div class="room-glow room-glow-left" aria-hidden="true"></div>
-  <div class="room-glow room-glow-right" aria-hidden="true"></div>
+  <main class="world" id="home">
+    <header class="topbar">
+      <a class="brand" href="#home">Lonelyroom</a>
+      <nav class="room-nav" aria-label="Комнаты">
+        <button class="nav-pill is-active" type="button" data-open-room="home">комната</button>
+        <button class="nav-pill" type="button" data-open-room="books">книги</button>
+        <button class="nav-pill" type="button" data-open-room="anime">аниме</button>
+        <button class="nav-pill" type="button" data-open-room="music">музыка</button>
+        <button class="nav-pill" type="button" data-open-room="blog">блог</button>
+        <button class="nav-pill" type="button" data-open-room="friends">друзья</button>
+      </nav>
+    </header>
 
-  <header class="site-header">
-    <nav class="main-nav" aria-label="Главное меню">
-      <a class="nav-link active" href="#home">☆ Главная</a>
-      <a class="nav-link" href="#library">Библиотека</a>
-      <a class="nav-link" href="#finds">Находки</a>
-      <a class="nav-link" href="#inspiration">Вдохновение</a>
-      <a class="nav-link" href="#media">Медиа</a>
-      <a class="nav-link" href="#creative">Творчество</a>
-      <a class="nav-link" href="#friends">Клуб</a>
-      <span class="nav-actions" aria-hidden="true">
-        <span>☆</span>
-        <span>✉</span>
-      </span>
-    </nav>
-  </header>
-
-  <main id="home">
-    <section class="hero story-home" aria-labelledby="hero-title">
-      <div class="storybook-scene" aria-hidden="true">
-        <div class="curtain"></div>
-        <div class="left-shelf">
-          <span class="shelf-plant"></span>
-          <span class="shelf-books"></span>
-          <span class="tiny-screen"></span>
-        </div>
-        <div class="right-shelf">
-          <span class="cat-poster"></span>
-          <span class="fish-bowl"></span>
-          <span class="shelf-books"></span>
-        </div>
-        <div class="ceiling-garland">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="hanging-charm"></div>
-        <div class="night-cloud cloud-one"></div>
-        <div class="night-cloud cloud-two"></div>
-        <div class="floor-desk">
-          <span class="open-letter"></span>
-          <span class="pen"></span>
-        </div>
-        <div class="sleepy-cat"></div>
-        <div class="mug"></div>
-      </div>
-
-      <div class="hero-copy">
-        <p class="eyebrow">тёплая ночная комната</p>
-        <h1 id="hero-title">Lonelyroom</h1>
-        <p class="hero-subtitle">
-          твоё место для уютных вечеров,<br>
-          любимых историй и вдохновения
-        </p>
-      </div>
-
-      <div class="portal-row" aria-label="Главные двери Lonelyroom">
-        <a class="portal portal-movies" href="#media" data-door>
-          <span class="portal-top">
-            <span class="portal-icon">▣</span>
-            <span class="portal-title">фильмы<br>и сериалы</span>
-            <span class="portal-dots">··············</span>
-            <span class="portal-text">истории для<br>уютных вечеров</span>
-          </span>
-          <span class="portal-room">
-            <span class="portal-lamp"></span>
-            <span class="portal-sofa"></span>
-            <span class="portal-tv"></span>
-            <span class="portal-rug"></span>
-          </span>
-          <span class="open-door left-door"></span>
-        </a>
-
-        <a class="portal portal-anime" href="#media" data-door>
-          <span class="portal-top">
-            <span class="portal-icon">☁</span>
-            <span class="portal-title">аниме, манга<br>и мультики</span>
-            <span class="portal-dots">··············</span>
-            <span class="portal-text">истории, в которые<br>хочется возвращаться</span>
-          </span>
-          <span class="portal-room">
-            <span class="portal-window-view"></span>
-            <span class="portal-figure"></span>
-            <span class="portal-books"></span>
-            <span class="portal-totoro">◔</span>
-          </span>
-          <span class="open-door right-door"></span>
-        </a>
-      </div>
-
-      <div class="home-quote">
-        <span>“иногда лучший план —<br>это остаться дома”</span>
-        <a href="#room" aria-label="прокрутить к комнате">↓</a>
-      </div>
-    </section>
-
-    <section class="player-room-section section-shell" id="room" aria-labelledby="room-title">
-      <div class="section-heading centered">
-        <p class="eyebrow">главная комната пользователя</p>
-        <h2 id="room-title">Твоя Lonelyroom</h2>
-        <p class="section-note">Мини-комната для отдыха, заметок и маленьких вечерних ритуалов.</p>
-      </div>
-
-      <div class="cozy-room" aria-label="Интерактивная комната Lonelyroom">
-        <div class="room-wall">
-          <div class="room-garland" aria-hidden="true">
+    <section class="home-room room-panel is-active" data-room="home" aria-labelledby="home-title">
+      <div class="room-shell">
+        <div class="wall">
+          <div class="garland" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
 
-          <button class="room-item game-window" type="button" data-room-item aria-label="Окно">
-            <span class="tooltip">за окном тихо мерцает город, будто он тоже не спит</span>
-            <span class="room-moon"></span>
-            <span class="room-cloud"></span>
+          <button class="weather-window room-object" type="button" aria-label="Окно с погодой">
+            <span class="tooltip">за окном тихий дождь и тёплый свет окон</span>
+            <span class="moon"></span>
+            <span class="rain r1"></span>
+            <span class="rain r2"></span>
+            <span class="rain r3"></span>
           </button>
 
-          <button class="room-item bookshelf" type="button" data-room-item aria-label="Книжная полка">
-            <span class="tooltip">на полке лежит книга, которая пахнет дождем и какао</span>
-            <span class="shelf"></span>
+          <button class="bookshelf room-object" type="button" data-open-room="books" aria-label="Книжная полка">
+            <span class="tooltip">открыть комнату книг</span>
             <span class="book b1"></span>
             <span class="book b2"></span>
             <span class="book b3"></span>
             <span class="book b4"></span>
+            <span class="book b5"></span>
           </button>
 
-          <div class="wall-notes" aria-label="Записки в комнате">
-            <span class="pin-note">плейлист на вечер</span>
-            <span class="pin-note small">не забыть чай</span>
+          <div class="room-doors" aria-label="Двери в разделы">
+            <button class="space-door door-books" type="button" data-open-room="books">
+              <span>книги</span>
+            </button>
+            <button class="space-door door-anime" type="button" data-open-room="anime">
+              <span>аниме</span>
+            </button>
+            <button class="space-door door-music" type="button" data-open-room="music">
+              <span>музыка</span>
+            </button>
+            <button class="space-door door-blog" type="button" data-open-room="blog">
+              <span>блог</span>
+            </button>
+            <button class="space-door door-friends" type="button" data-open-room="friends">
+              <span>друзья</span>
+            </button>
           </div>
         </div>
 
-        <div class="room-floor">
-          <div class="sofa" aria-label="Кровать-диван">
+        <div class="floor">
+          <div class="soft-light" aria-hidden="true"></div>
+          <div class="sofa" aria-label="мягкий диван">
             <span class="pillow"></span>
             <span class="blanket"></span>
           </div>
 
-          <button class="room-item desk" type="button" data-room-item aria-label="Стол">
+          <button class="desk room-object" type="button" aria-label="Стол для записок">
             <span class="tooltip">оставить записку</span>
-            <span class="desk-lamp"></span>
-            <span class="desk-note"></span>
-            <span class="tea-cup"></span>
+            <span class="lamp"></span>
+            <span class="desk-paper"></span>
+            <span class="tea"></span>
           </button>
 
-          <button class="room-item character" type="button" data-room-item aria-label="Персонаж">
-            <span class="tooltip profile-tooltip">
-              <strong>lonelyshaw</strong>
-              настроение: тихий вечер<br>
-              любит: истории, дождь, мягкий свет
+          <button class="avatar room-object" type="button" aria-label="Персонаж пользователя">
+            <span class="tooltip profile">
+              <strong>ты дома</strong>
+              настроение: уют<br>
+              режим: вечер
             </span>
-            <span class="head"></span>
             <span class="hair"></span>
+            <span class="face"></span>
             <span class="body"></span>
-            <span class="scarf"></span>
           </button>
 
-          <div class="room-plant plant-a" aria-label="Растение"></div>
-          <div class="room-plant plant-b" aria-label="Растение"></div>
-          <div class="floor-rug" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
+          <div class="pet" aria-label="питомец рядом"></div>
+          <div class="plant p-left" aria-label="растение"></div>
+          <div class="plant p-right" aria-label="растение"></div>
+          <div class="rug" aria-hidden="true"></div>
 
-    <section class="friends-section section-shell" id="friends" aria-labelledby="friends-title">
-      <div class="section-heading">
-        <p class="eyebrow">Комнаты друзей</p>
-        <h2 id="friends-title">Заглянуть в гости</h2>
-        <p class="section-note">Пока это демо без backend: введи ник, и комната друга появится прямо здесь.</p>
-      </div>
-
-      <form class="friend-form" id="friend-form">
-        <label for="friend-nick">введи ник друга</label>
-        <div class="friend-controls">
-          <input id="friend-nick" name="friendNick" type="text" placeholder="например, mooncat" autocomplete="off" required>
-          <button type="submit">зайти в комнату</button>
-        </div>
-      </form>
-
-      <div class="friend-room is-hidden" id="friend-room" aria-live="polite">
-        <div class="friend-room-header">
-          <p class="eyebrow">демо-комната</p>
-          <h3>Комната <span id="friend-name">друга</span></h3>
-        </div>
-
-        <div class="friend-room-scene">
-          <div class="friend-wall">
-            <div class="friend-window" aria-hidden="true"></div>
-            <div class="friend-notes-wall" id="friend-notes-wall" aria-label="Записки в комнате друга">
-              <span class="friend-note">рада гостям</span>
+          <form class="note-pad" id="note-form" aria-label="Оставить записку">
+            <label for="note-text">записка</label>
+            <div class="note-row">
+              <input id="note-text" type="text" maxlength="64" placeholder="что оставить на столе?">
+              <button type="submit">♡</button>
             </div>
-          </div>
-          <div class="friend-floor">
-            <div class="friend-bed" aria-hidden="true"></div>
-            <div class="friend-table" aria-hidden="true">
-              <div class="table-notes" id="table-notes"></div>
-            </div>
-            <div class="friend-avatar" aria-hidden="true"></div>
-            <div class="friend-plant" aria-hidden="true"></div>
+          </form>
+
+          <div class="table-notes" id="table-notes" aria-label="Записки на столе">
+            <span>вечером чай</span>
           </div>
         </div>
 
-        <form class="note-form" id="note-form">
-          <label for="friend-note">оставить записку в комнате друга</label>
-          <textarea id="friend-note" name="friendNote" rows="3" maxlength="120" placeholder="напиши что-нибудь теплое..." required></textarea>
-          <button type="submit">оставить записку</button>
-        </form>
+        <div class="room-title">
+          <p>личное пространство</p>
+          <h1 id="home-title">Lonelyroom</h1>
+        </div>
       </div>
     </section>
 
-    <section class="doors-section section-shell" id="library" aria-labelledby="doors-title">
-      <div class="section-heading">
-        <p class="eyebrow">большие двери-разделы</p>
-        <h2 id="doors-title">Куда заглянем сегодня?</h2>
-      </div>
-
-      <div class="doors-grid">
-        <a class="door-card" href="#media" data-door>
-          <span class="door-icon" aria-hidden="true">🚪</span>
-          <span class="door-title">Фильмы и сериалы</span>
-          <span class="door-text">истории для уютных вечеров</span>
-        </a>
-        <a class="door-card" href="#media" data-door>
-          <span class="door-icon" aria-hidden="true">🚪</span>
-          <span class="door-title">Аниме, манга и мультики</span>
-          <span class="door-text">истории, в которые хочется возвращаться</span>
-        </a>
-        <a class="door-card" href="#media" data-door>
-          <span class="door-icon" aria-hidden="true">🚪</span>
-          <span class="door-title">Книги</span>
-          <span class="door-text">тихая полка для долгих вечеров</span>
-        </a>
-        <a class="door-card" href="#media" data-door>
-          <span class="door-icon" aria-hidden="true">🚪</span>
-          <span class="door-title">Музыка</span>
-          <span class="door-text">звуки дождя, дороги и ночного города</span>
-        </a>
+    <section class="section-room room-panel" data-room="books" aria-labelledby="books-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene books-scene">
+        <div class="mini-window"></div>
+        <div class="big-shelf"></div>
+        <div class="reading-chair"></div>
+        <div class="floating-notes">
+          <span>тихая полка</span>
+          <span>дождь</span>
+          <span>закладка</span>
+        </div>
+        <h2 id="books-title">книги</h2>
       </div>
     </section>
 
-    <section class="media-section section-shell" id="media" aria-labelledby="media-title">
-      <div class="section-heading">
-        <p class="eyebrow">Медиа</p>
-        <h2 id="media-title">Полки настроений</h2>
-        <p class="section-note">Наведи на карточку, чтобы открыть маленькую заметку из комнаты.</p>
+    <section class="section-room room-panel" data-room="anime" aria-labelledby="anime-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene anime-scene">
+        <div class="wide-window"></div>
+        <div class="screen-glow"></div>
+        <div class="floor-cushion"></div>
+        <div class="tiny-mascot"></div>
+        <h2 id="anime-title">аниме</h2>
       </div>
+    </section>
 
-      <div class="category" id="finds">
-        <h3>хоррор</h3>
-        <div class="cards-row" aria-label="хоррор">
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Шепот за дверью</h4>
-            <p class="meta">2019 · мистический триллер</p>
-            <p class="description">Легкий холодок, свеча на столе и тайна старого дома без лишней жестокости.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">сериал</p>
-            <h4>Полночные письма</h4>
-            <p class="meta">2021 · уютная мистика</p>
-            <p class="description">Каждая серия похожа на странную записку, найденную между страницами дневника.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">манга</p>
-            <h4>Дом под луной</h4>
-            <p class="meta">2017 · сверхъестественное</p>
-            <p class="description">Тихая история о призраках, которые больше скучают, чем пугают.</p>
-          </article>
+    <section class="section-room room-panel" data-room="music" aria-labelledby="music-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene music-scene">
+        <div class="record-player"></div>
+        <div class="speaker left"></div>
+        <div class="speaker right"></div>
+        <div class="sound-waves">
+          <span></span><span></span><span></span>
         </div>
+        <h2 id="music-title">музыка</h2>
       </div>
+    </section>
 
-      <div class="category">
-        <h3>повседневное</h3>
-        <div class="cards-row" aria-label="повседневное">
-          <article class="media-card">
-            <p class="media-kind">аниме</p>
-            <h4>Кафе на углу дождя</h4>
-            <p class="meta">2020 · slice of life</p>
-            <p class="description">Маленькие разговоры, теплый чай и город, который становится добрее к вечеру.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">книга</p>
-            <h4>Тетрадь выходного дня</h4>
-            <p class="meta">2015 · проза</p>
-            <p class="description">Для тех моментов, когда хочется читать о простых вещах и узнавать себя.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">мультфильм</p>
-            <h4>Комната с папоротником</h4>
-            <p class="meta">2022 · семейное</p>
-            <p class="description">Мягкая рисовка, ленивое воскресенье и растение, которое слушает мечты.</p>
-          </article>
-        </div>
+    <section class="section-room room-panel" data-room="blog" aria-labelledby="blog-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene blog-scene">
+        <div class="writing-desk"></div>
+        <div class="paper-stack"></div>
+        <div class="wall-calendar"></div>
+        <div class="soft-plant"></div>
+        <h2 id="blog-title">блог</h2>
       </div>
+    </section>
 
-      <div class="category">
-        <h3>комедии</h3>
-        <div class="cards-row" aria-label="комедии">
-          <article class="media-card">
-            <p class="media-kind">сериал</p>
-            <h4>Соседи сверху</h4>
-            <p class="meta">2018 · комедия</p>
-            <p class="description">Добрый хаос, неловкие встречи на лестнице и смех, который не ломает уют.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">аниме</p>
-            <h4>Магазин чудных мелочей</h4>
-            <p class="meta">2023 · комедия, фэнтези</p>
-            <p class="description">Каждая покупка запускает абсурдное, но очень милое приключение.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Плед напрокат</h4>
-            <p class="meta">2016 · романтическая комедия</p>
-            <p class="description">Смешная история про людей, которые учатся быть честными и не мерзнуть.</p>
-          </article>
+    <section class="section-room room-panel" data-room="friends" aria-labelledby="friends-title">
+      <button class="back-home" type="button" data-open-room="home">← в комнату</button>
+      <div class="section-scene friends-scene">
+        <div class="friend-window"></div>
+        <div class="friend-bed"></div>
+        <div class="friend-desk"></div>
+        <div class="friend-avatar"></div>
+        <div class="friend-pet"></div>
+        <div class="friend-posters">
+          <span>привет</span>
+          <span>вечер</span>
+          <span>чай?</span>
         </div>
-      </div>
-
-      <div class="category" id="inspiration">
-        <h3>осень</h3>
-        <div class="cards-row" aria-label="осень">
-          <article class="media-card">
-            <p class="media-kind">книга</p>
-            <h4>Листья в карманах</h4>
-            <p class="meta">2014 · лирическая проза</p>
-            <p class="description">Пахнет корицей, мокрым асфальтом и письмами, которые решились отправить.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">плейлист</p>
-            <h4>Сентябрь на кассете</h4>
-            <p class="meta">2024 · инди, lo-fi</p>
-            <p class="description">Треки для прогулки в шарфе и возвращения домой под желтые фонари.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Почтовый ящик октября</h4>
-            <p class="meta">2012 · драма</p>
-            <p class="description">Неспешная история о взрослении, городе и случайных встречах у витрин.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="category">
-        <h3>дорога</h3>
-        <div class="cards-row" aria-label="дорога">
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Ночной автобус</h4>
-            <p class="meta">2021 · road movie</p>
-            <p class="description">Окна отражают огни трассы, а попутчики оказываются важнее пункта назначения.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">музыка</p>
-            <h4>Дорога после дождя</h4>
-            <p class="meta">2020 · ambient</p>
-            <p class="description">Для поездок без спешки, когда город остается позади и мысли становятся тише.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">аниме</p>
-            <h4>Станция у моря</h4>
-            <p class="meta">2019 · приключение</p>
-            <p class="description">Путешествие на электричках, соленый ветер и новые друзья на каждой остановке.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="category">
-        <h3>одиночество</h3>
-        <div class="cards-row" aria-label="одиночество">
-          <article class="media-card">
-            <p class="media-kind">книга</p>
-            <h4>Один столик у окна</h4>
-            <p class="meta">2018 · современная проза</p>
-            <p class="description">Не грустная, а бережная история о том, как услышать собственный голос.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Свет в соседнем окне</h4>
-            <p class="meta">2017 · драма</p>
-            <p class="description">Про тихую связь между людьми, которые долго думали, что никому не нужны.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">плейлист</p>
-            <h4>Не выключай лампу</h4>
-            <p class="meta">2024 · dream pop</p>
-            <p class="description">Мягкие песни для вечеров, когда одиночество превращается в пространство.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="category" id="creative">
-        <h3>для вечера</h3>
-        <div class="cards-row" aria-label="для вечера">
-          <article class="media-card">
-            <p class="media-kind">фильм</p>
-            <h4>Пирог с черникой</h4>
-            <p class="meta">2023 · уютная драма</p>
-            <p class="description">История, которую хочется смотреть в носках, с чашкой какао и выключенным телефоном.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">аниме</p>
-            <h4>Звезды на потолке</h4>
-            <p class="meta">2022 · романтика</p>
-            <p class="description">Нежная рисовка, тихие признания и немного магии в обычной комнате.</p>
-          </article>
-          <article class="media-card">
-            <p class="media-kind">книга</p>
-            <h4>Пока чай остывает</h4>
-            <p class="meta">2019 · рассказы</p>
-            <p class="description">Короткие главы для вечера, когда хочется закончить день мягко.</p>
-          </article>
-        </div>
+        <h2 id="friends-title">друзья</h2>
       </div>
     </section>
   </main>
-
-  <footer class="site-footer" id="club">
-    <p class="footer-quote">“иногда лучший план — это остаться дома”</p>
-    <div class="touch-card">
-      <p>stay in touch ♡</p>
-      <span>пиши письма комнате, сохраняй находки, возвращайся за светом</span>
-    </div>
-  </footer>
 
   <script src="script.js"></script>
 </body>
