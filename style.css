@@ -60,7 +60,7 @@ button {
   position: fixed;
   top: 14px;
   left: 50%;
-  z-index: 30;
+  z-index: 40;
   width: min(1180px, calc(100% - 28px));
   display: flex;
   align-items: center;
@@ -100,15 +100,13 @@ button {
 }
 
 .nav-pill,
-.home-button,
-.room-hotspot,
+.door-entry,
 .note-row button {
   cursor: pointer;
   transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease;
 }
 
-.nav-pill,
-.home-button {
+.nav-pill {
   flex: 0 0 auto;
   padding: 8px 12px;
   color: var(--muted);
@@ -120,9 +118,7 @@ button {
 
 .nav-pill:hover,
 .nav-pill:focus-visible,
-.nav-pill.is-active,
-.home-button:hover,
-.home-button:focus-visible {
+.nav-pill.is-active {
   color: var(--cream);
   border-color: rgba(255, 217, 138, 0.44);
   background: rgba(255, 217, 138, 0.18);
@@ -149,35 +145,63 @@ button {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 5;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(5, 8, 18, 0.08), transparent 34%, rgba(5, 8, 18, 0.18)),
-    radial-gradient(circle at 50% 50%, transparent 54%, rgba(4, 5, 12, 0.26));
+    linear-gradient(180deg, rgba(5, 8, 18, 0.06), transparent 36%, rgba(5, 8, 18, 0.2)),
+    radial-gradient(circle at 50% 50%, transparent 56%, rgba(4, 5, 12, 0.28));
 }
 
-.house-background {
+.room-stage,
+.room-scene,
+.room-art {
   position: absolute;
   inset: 0;
 }
 
-.house-art {
+.room-scene {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 640ms ease;
+}
+
+.room-scene.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.room-art {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
+.transition-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(11, 17, 38, 0.7), rgba(3, 5, 13, 0.96));
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.house-shell.is-transitioning .transition-curtain {
+  opacity: 1;
+}
+
 .rain-layer,
-.fairy-lights,
-.room-hotspots,
-.door-glow,
-.sleeping-cat {
+.lamp-glow,
+.door-map,
+.tea-steam {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
 .rain-layer {
+  z-index: 6;
   overflow: hidden;
   opacity: 0.72;
   mix-blend-mode: screen;
@@ -207,52 +231,91 @@ button {
 .rain-layer span:nth-child(11) { left: 90%; --rain-speed: 1.4s; --rain-delay: -0.5s; --rain-height: 18%; }
 .rain-layer span:nth-child(12) { left: 96%; --rain-speed: 2.05s; --rain-delay: -1.5s; --rain-height: 25%; }
 
-.fairy-lights {
-  z-index: 2;
-  opacity: 0.9;
+.lamp-glow {
+  z-index: 7;
+  background:
+    radial-gradient(circle at 23% 70%, rgba(255, 217, 138, 0.16), transparent 18%),
+    radial-gradient(circle at 78% 68%, rgba(255, 177, 139, 0.14), transparent 18%);
+  animation: lampFlicker 4.2s ease-in-out infinite alternate;
 }
 
-.fairy-lights span {
+.door-map {
+  z-index: 12;
+}
+
+.door-entry {
   position: absolute;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 18px rgba(255, 217, 138, 0.9), 0 0 42px rgba(255, 217, 138, 0.24);
-  animation: twinkle 2.8s ease-in-out infinite alternate;
+  padding: 8px 10px;
+  color: rgba(255, 241, 216, 0.94);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-shadow: 0 2px 14px rgba(3, 5, 13, 0.8);
+  border: 1px solid rgba(255, 241, 216, 0.12);
+  border-radius: 999px;
+  background: rgba(7, 12, 28, 0.35);
+  backdrop-filter: blur(7px);
+  pointer-events: auto;
 }
 
-.fairy-lights span:nth-child(1) { left: 18%; top: 14%; }
-.fairy-lights span:nth-child(2) { left: 29%; top: 11%; background: #ffc7d1; animation-delay: -0.7s; }
-.fairy-lights span:nth-child(3) { left: 42%; top: 13%; animation-delay: -1.4s; }
-.fairy-lights span:nth-child(4) { left: 55%; top: 12%; background: #ffd0a3; animation-delay: -0.3s; }
-.fairy-lights span:nth-child(5) { left: 68%; top: 15%; animation-delay: -1.9s; }
-.fairy-lights span:nth-child(6) { left: 79%; top: 12%; background: #ffc7d1; animation-delay: -1s; }
-.fairy-lights span:nth-child(7) { left: 90%; top: 17%; animation-delay: -2.2s; }
-
-.sleeping-cat {
-  left: 48%;
-  top: 66%;
-  width: 9%;
-  height: 8%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 241, 216, 0.08), transparent 62%);
-  animation: catSleep 3.2s ease-in-out infinite;
+.door-entry:hover,
+.door-entry:focus-visible {
+  border-color: rgba(255, 217, 138, 0.54);
+  background: rgba(255, 217, 138, 0.18);
+  box-shadow: 0 0 28px rgba(255, 217, 138, 0.24);
+  transform: translateY(-2px);
+  outline: none;
 }
+
+.entry-books { left: 19%; top: 44%; }
+.entry-anime { left: 36%; top: 43%; }
+.entry-music { left: 51%; top: 44%; }
+.entry-blog { left: 66%; top: 43%; }
+.entry-friends { left: 81%; top: 45%; }
 
 .character {
   position: absolute;
-  left: 22%;
-  bottom: 20%;
-  z-index: 6;
-  width: clamp(68px, 8vw, 106px);
+  z-index: 16;
+  width: clamp(74px, 9vw, 116px);
   aspect-ratio: 1 / 1.32;
   pointer-events: none;
   opacity: 0.9;
-  filter: drop-shadow(0 12px 18px rgba(3, 5, 13, 0.26));
-  animation: characterBreath 5s ease-in-out infinite;
   overflow: hidden;
   border-radius: 36%;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 56%, #000 0 36%, rgba(0, 0, 0, 0.82) 48%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 56%, #000 0 36%, rgba(0, 0, 0, 0.82) 48%, transparent 72%);
+  filter: drop-shadow(0 12px 18px rgba(3, 5, 13, 0.26));
+  animation: characterBreath 5s ease-in-out infinite;
+  transition: left 520ms ease, right 520ms ease, bottom 520ms ease, width 520ms ease, opacity 520ms ease;
+}
+
+.house-shell[data-active-room="home"] .character {
+  left: 18%;
+  bottom: 18%;
+}
+
+.house-shell[data-active-room="books"] .character {
+  left: 24%;
+  bottom: 19%;
+}
+
+.house-shell[data-active-room="anime"] .character {
+  right: 24%;
+  bottom: 18%;
+}
+
+.house-shell[data-active-room="music"] .character {
+  left: 18%;
+  bottom: 17%;
+}
+
+.house-shell[data-active-room="blog"] .character {
+  left: 32%;
+  bottom: 16%;
+}
+
+.house-shell[data-active-room="friends"] .character {
+  right: 26%;
+  bottom: 17%;
 }
 
 .character-frame {
@@ -270,97 +333,29 @@ button {
   opacity: 1;
 }
 
-.character[data-character-state="reading"] {
-  animation-name: characterRead;
-}
-
-.character[data-character-state="tea"] {
-  animation-name: characterTea;
-}
-
-.character[data-character-state="laptop"] {
-  animation-name: characterLaptop;
-}
-
-.character[data-character-state="lookingWindow"] {
-  animation-name: characterLook;
-}
-
-.room-hotspots {
-  z-index: 7;
-  pointer-events: none;
-}
-
-.room-hotspot {
-  position: absolute;
-  pointer-events: auto;
-  display: grid;
-  place-items: center;
-  color: rgba(255, 241, 216, 0.95);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-shadow: 0 2px 14px rgba(3, 5, 13, 0.8);
-  border: 1px solid rgba(255, 241, 216, 0.08);
-  border-radius: 28px;
-  background: rgba(7, 12, 28, 0.08);
-  opacity: 0.76;
-}
-
-.room-hotspot span {
-  padding: 7px 11px;
-  border-radius: 999px;
-  background: rgba(7, 12, 28, 0.45);
-  backdrop-filter: blur(7px);
-}
-
-.room-hotspot:hover,
-.room-hotspot:focus-visible,
-.room-hotspot.is-open {
-  opacity: 1;
-  border-color: rgba(255, 217, 138, 0.5);
-  background: rgba(255, 217, 138, 0.12);
-  box-shadow: 0 0 34px rgba(255, 217, 138, 0.2);
-  transform: translateY(-4px);
-  outline: none;
-}
-
-.hotspot-books { left: 8%; top: 32%; width: 18%; height: 44%; }
-.hotspot-anime { left: 28%; top: 32%; width: 17%; height: 44%; }
-.hotspot-music { left: 47%; top: 32%; width: 17%; height: 44%; }
-.hotspot-blog { left: 66%; top: 31%; width: 15%; height: 44%; }
-.hotspot-friends { left: 82%; top: 34%; width: 15%; height: 42%; }
-
-.door-glow {
-  z-index: 5;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255, 217, 138, 0.24), transparent 16%);
-  transition: opacity 260ms ease;
-}
-
-.door-glow.is-visible {
-  opacity: 1;
-}
+.character[data-character-state="reading"] { animation-name: characterRead; }
+.character[data-character-state="tea"] { animation-name: characterTea; }
+.character[data-character-state="laptop"] { animation-name: characterLaptop; }
+.character[data-character-state="lookingWindow"] { animation-name: characterLook; }
 
 .title-card {
   position: absolute;
   top: clamp(88px, 14svh, 132px);
   left: 50%;
-  z-index: 8;
+  z-index: 18;
   text-align: center;
   pointer-events: none;
   transform: translateX(-50%);
   transition: opacity 320ms ease, transform 320ms ease;
 }
 
-.house-shell.is-section-open .title-card {
+.house-shell:not([data-active-room="home"]) .title-card {
   opacity: 0;
   transform: translate(-50%, -10px);
 }
 
 .title-card p,
-.room-label span,
-.section-kicker {
+.room-label span {
   margin: 0 0 6px;
   color: rgba(255, 241, 216, 0.82);
   font-size: 0.72rem;
@@ -368,8 +363,7 @@ button {
   text-shadow: 0 2px 16px rgba(3, 5, 13, 0.62);
 }
 
-.title-card h1,
-.section-panel h2 {
+.title-card h1 {
   margin: 0;
   color: var(--cream);
   font-family: "Caveat", cursive;
@@ -378,71 +372,24 @@ button {
   text-shadow: 0 0 30px rgba(255, 241, 216, 0.38), 0 8px 26px rgba(3, 5, 13, 0.4);
 }
 
-.section-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.section-panel {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(520px, calc(100% - 48px));
-  padding: 24px;
-  border: 1px solid rgba(255, 241, 216, 0.18);
-  border-radius: 28px;
-  background: rgba(7, 12, 28, 0.48);
-  box-shadow: 0 24px 64px rgba(3, 5, 13, 0.34);
-  backdrop-filter: blur(16px);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, calc(-50% + 24px));
-  transition: opacity 360ms ease, transform 360ms ease;
-}
-
-.section-panel.is-active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%);
-}
-
-.section-panel p:not(.section-kicker) {
-  margin: 18px 0 0;
-  color: rgba(255, 241, 216, 0.84);
-  line-height: 1.7;
-}
-
-.section-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.section-tags span {
-  padding: 8px 10px;
-  color: rgba(255, 241, 216, 0.82);
-  font-size: 0.76rem;
-  border: 1px solid rgba(255, 241, 216, 0.14);
-  border-radius: 999px;
-  background: rgba(255, 241, 216, 0.08);
+.room-label,
+.room-clock,
+.note-pad {
+  border: 1px solid var(--line);
+  background: var(--glass);
+  box-shadow: 0 18px 44px rgba(3, 5, 13, 0.24);
+  backdrop-filter: blur(14px);
 }
 
 .room-label {
   position: absolute;
   left: 24px;
   bottom: calc(24px + env(safe-area-inset-bottom));
-  z-index: 12;
+  z-index: 20;
   display: grid;
   gap: 2px;
   padding: 14px 16px;
-  border: 1px solid var(--line);
   border-radius: 20px;
-  background: var(--glass);
-  box-shadow: 0 18px 44px rgba(3, 5, 13, 0.24);
-  backdrop-filter: blur(14px);
 }
 
 .room-label strong {
@@ -451,18 +398,25 @@ button {
   line-height: 0.9;
 }
 
+.room-clock {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  z-index: 20;
+  padding: 10px 13px;
+  color: rgba(255, 241, 216, 0.88);
+  font-size: 0.82rem;
+  border-radius: 999px;
+}
+
 .note-pad {
   position: absolute;
   right: 24px;
   bottom: calc(24px + env(safe-area-inset-bottom));
-  z-index: 12;
+  z-index: 20;
   width: min(300px, 28vw);
   padding: 13px;
-  border: 1px solid rgba(255, 241, 216, 0.18);
   border-radius: 20px;
-  background: var(--glass);
-  box-shadow: 0 18px 44px rgba(3, 5, 13, 0.28);
-  backdrop-filter: blur(14px);
 }
 
 .note-pad label {
@@ -506,7 +460,7 @@ button {
   position: absolute;
   right: 34px;
   top: 26%;
-  z-index: 6;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   max-width: 260px;
@@ -535,19 +489,30 @@ button {
   transform: rotate(4deg);
 }
 
-.home-button {
-  position: absolute;
-  left: 24px;
-  top: 24px;
-  z-index: 12;
-  opacity: 0;
-  pointer-events: none;
+.tea-steam {
+  z-index: 18;
+  left: auto;
+  top: auto;
+  right: 19%;
+  bottom: 22%;
+  width: 70px;
+  height: 90px;
 }
 
-.house-shell.is-section-open .home-button {
-  opacity: 1;
-  pointer-events: auto;
+.tea-steam span {
+  position: absolute;
+  bottom: 0;
+  width: 18px;
+  height: 58px;
+  border-radius: 999px;
+  border-left: 2px solid rgba(255, 241, 216, 0.42);
+  opacity: 0;
+  animation: steam 4s ease-in-out infinite;
 }
+
+.tea-steam span:nth-child(1) { left: 8px; animation-delay: 0s; }
+.tea-steam span:nth-child(2) { left: 28px; animation-delay: -1.4s; }
+.tea-steam span:nth-child(3) { left: 48px; animation-delay: -2.6s; }
 
 @keyframes starsDrift {
   to { transform: translateY(18px); }
@@ -557,14 +522,9 @@ button {
   to { transform: translateY(820%); }
 }
 
-@keyframes twinkle {
-  from { opacity: 0.44; transform: translateY(0) scale(0.9); }
-  to { opacity: 1; transform: translateY(4px) scale(1.08); }
-}
-
-@keyframes catSleep {
-  0%, 100% { opacity: 0.15; transform: scale(0.92); }
-  50% { opacity: 0.42; transform: scale(1.08); }
+@keyframes lampFlicker {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
 }
 
 @keyframes characterBreath {
@@ -584,13 +544,19 @@ button {
 }
 
 @keyframes characterLaptop {
-  0%, 100% { transform: translateY(0); filter: drop-shadow(0 18px 20px rgba(3, 5, 13, 0.34)); }
+  0%, 100% { transform: translateY(0); filter: drop-shadow(0 12px 18px rgba(3, 5, 13, 0.26)); }
   50% { transform: translateY(2px); filter: drop-shadow(0 18px 24px rgba(137, 185, 215, 0.22)); }
 }
 
 @keyframes characterLook {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(2px) translateX(-2px); }
+}
+
+@keyframes steam {
+  0% { opacity: 0; transform: translateY(16px) translateX(0) scale(0.7); }
+  30% { opacity: 0.52; }
+  100% { opacity: 0; transform: translateY(-44px) translateX(-8px) scale(1.2); }
 }
 
 @media (max-width: 980px) {
@@ -646,30 +612,34 @@ button {
     font-size: clamp(4.2rem, 22vw, 6rem);
   }
 
-  .character {
-    left: 17%;
-    bottom: 26%;
-    width: clamp(70px, 24vw, 96px);
-  }
-
-  .room-hotspot {
+  .door-entry {
     font-size: 0.62rem;
   }
 
-  .hotspot-books { left: 4%; top: 36%; width: 18%; height: 33%; }
-  .hotspot-anime { left: 23%; top: 36%; width: 18%; height: 33%; }
-  .hotspot-music { left: 42%; top: 36%; width: 18%; height: 33%; }
-  .hotspot-blog { left: 61%; top: 36%; width: 17%; height: 33%; }
-  .hotspot-friends { left: 79%; top: 36%; width: 18%; height: 33%; }
+  .entry-books { left: 10%; top: 44%; }
+  .entry-anime { left: 28%; top: 44%; }
+  .entry-music { left: 46%; top: 44%; }
+  .entry-blog { left: 63%; top: 44%; }
+  .entry-friends { left: 78%; top: 44%; }
 
-  .section-panel {
-    top: 47%;
-    width: calc(100% - 32px);
-    padding: 20px;
+  .character {
+    width: clamp(62px, 22vw, 94px);
   }
 
-  .section-panel h2 {
-    font-size: clamp(3.4rem, 18vw, 5.2rem);
+  .house-shell[data-active-room="home"] .character,
+  .house-shell[data-active-room="books"] .character,
+  .house-shell[data-active-room="music"] .character,
+  .house-shell[data-active-room="blog"] .character {
+    left: 16%;
+    right: auto;
+    bottom: 24%;
+  }
+
+  .house-shell[data-active-room="anime"] .character,
+  .house-shell[data-active-room="friends"] .character {
+    left: auto;
+    right: 18%;
+    bottom: 24%;
   }
 
   .note-pad {
@@ -684,16 +654,16 @@ button {
     bottom: calc(136px + env(safe-area-inset-bottom));
   }
 
+  .room-clock {
+    right: 16px;
+    top: 16px;
+  }
+
   .house-notes {
     right: 18px;
     top: auto;
     bottom: calc(136px + env(safe-area-inset-bottom));
     max-width: 180px;
-  }
-
-  .home-button {
-    left: 16px;
-    top: 16px;
   }
 }
 

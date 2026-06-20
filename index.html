@@ -12,120 +12,70 @@
 <body>
   <main class="world" id="home">
     <header class="topbar">
-      <button class="brand" type="button" data-section="home">Lonelyroom</button>
-      <nav class="room-nav" aria-label="Разделы Lonelyroom">
-        <button class="nav-pill is-active" type="button" data-section="home">дом</button>
-        <button class="nav-pill" type="button" data-section="books">библиотека</button>
-        <button class="nav-pill" type="button" data-section="anime">аниме</button>
-        <button class="nav-pill" type="button" data-section="music">музыка</button>
-        <button class="nav-pill" type="button" data-section="blog">блог</button>
-        <button class="nav-pill" type="button" data-section="friends">друзья</button>
+      <button class="brand" type="button" data-room-target="home">Lonelyroom</button>
+      <nav class="room-nav" aria-label="Комнаты Lonelyroom">
+        <button class="nav-pill is-active" type="button" data-room-target="home">дом</button>
+        <button class="nav-pill" type="button" data-room-target="books">библиотека</button>
+        <button class="nav-pill" type="button" data-room-target="anime">аниме</button>
+        <button class="nav-pill" type="button" data-room-target="music">музыка</button>
+        <button class="nav-pill" type="button" data-room-target="blog">блог</button>
+        <button class="nav-pill" type="button" data-room-target="friends">друзья</button>
       </nav>
     </header>
 
-    <section class="house-shell" aria-labelledby="home-title">
-      <div class="house-background" aria-hidden="true">
-        <img class="house-art" src="assets/lonelyroom-house-world.png" alt="">
+    <section class="house-shell" data-active-room="home" aria-labelledby="home-title">
+      <div class="room-stage">
+        <article class="room-scene is-active" data-room="home">
+          <img class="room-art" src="assets/lonelyroom-home-hall.png" alt="Центральный коридор дома Lonelyroom с тёплым светом, дождём за окном и входом в уютный дом.">
+          <div class="door-map" aria-label="Двери в комнаты">
+            <button class="door-entry entry-books" type="button" data-room-target="books">библиотека</button>
+            <button class="door-entry entry-anime" type="button" data-room-target="anime">аниме</button>
+            <button class="door-entry entry-music" type="button" data-room-target="music">музыка</button>
+            <button class="door-entry entry-blog" type="button" data-room-target="blog">блог</button>
+            <button class="door-entry entry-friends" type="button" data-room-target="friends">друзья</button>
+          </div>
+        </article>
 
-        <div class="rain-layer">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
+        <article class="room-scene" data-room="books">
+          <img class="room-art" src="assets/lonelyroom-books-room.png" alt="Библиотека Lonelyroom с книжными шкафами до потолка, креслом, пледом, лампой и стопками книг.">
+        </article>
 
-        <div class="fairy-lights">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
+        <article class="room-scene" data-room="anime">
+          <img class="room-art" src="assets/lonelyroom-anime-room.png" alt="Аниме-комната Lonelyroom с экраном, мангой, фигурками, подушками и фиолетово-синей подсветкой.">
+        </article>
 
-        <div class="sleeping-cat"></div>
+        <article class="room-scene" data-room="music">
+          <img class="room-art" src="assets/lonelyroom-music-room.png" alt="Музыкальная комната Lonelyroom с виниловым проигрывателем, кассетами, колонками, наушниками и оранжевым светом.">
+        </article>
+
+        <article class="room-scene" data-room="blog">
+          <img class="room-art" src="assets/lonelyroom-blog-room.png" alt="Кабинет Lonelyroom для блога с письменным столом, ноутбуком, заметками, фотографиями и настольной лампой.">
+        </article>
+
+        <article class="room-scene" data-room="friends">
+          <img class="room-art" src="assets/lonelyroom-friends-room.png" alt="Гостиная друзей Lonelyroom с диваном, чайным столиком, пледами, подушками и атмосферой общения.">
+        </article>
       </div>
 
-      <div class="character" id="character" data-character-state="reading" aria-hidden="true">
-        <img class="character-frame is-active" data-character-frame="reading" src="assets/lonelyroom-character-reading.png" alt="">
+      <div class="rain-layer" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="lamp-glow" aria-hidden="true"></div>
+
+      <div class="transition-curtain" aria-hidden="true"></div>
+
+      <div class="character" id="character" data-character-state="lookingWindow" aria-hidden="true">
+        <img class="character-frame" data-character-frame="reading" src="assets/lonelyroom-character-reading.png" alt="">
         <img class="character-frame" data-character-frame="tea" src="assets/lonelyroom-character-tea.png" alt="">
         <img class="character-frame" data-character-frame="laptop" src="assets/lonelyroom-character-laptop.png" alt="">
-        <img class="character-frame" data-character-frame="lookingWindow" src="assets/lonelyroom-character-window.png" alt="">
+        <img class="character-frame is-active" data-character-frame="lookingWindow" src="assets/lonelyroom-character-window.png" alt="">
       </div>
 
       <div class="title-card">
-        <p>единый уютный дом</p>
+        <p>добро пожаловать домой</p>
         <h1 id="home-title">Lonelyroom</h1>
-      </div>
-
-      <div class="room-hotspots" aria-label="Открыть раздел">
-        <button class="room-hotspot hotspot-books" type="button" data-section="books">
-          <span>библиотека</span>
-        </button>
-        <button class="room-hotspot hotspot-anime" type="button" data-section="anime">
-          <span>аниме</span>
-        </button>
-        <button class="room-hotspot hotspot-music" type="button" data-section="music">
-          <span>музыка</span>
-        </button>
-        <button class="room-hotspot hotspot-blog" type="button" data-section="blog">
-          <span>блог</span>
-        </button>
-        <button class="room-hotspot hotspot-friends" type="button" data-section="friends">
-          <span>друзья</span>
-        </button>
-      </div>
-
-      <div class="door-glow" aria-hidden="true"></div>
-
-      <div class="section-layer" aria-live="polite">
-        <article class="section-panel" data-panel="books">
-          <p class="section-kicker">комната</p>
-          <h2>библиотека</h2>
-          <p>тихие полки, дождь, лампа и книги, к которым хочется возвращаться.</p>
-          <div class="section-tags">
-            <span>закладки</span>
-            <span>чай</span>
-            <span>вечернее чтение</span>
-          </div>
-        </article>
-
-        <article class="section-panel" data-panel="anime">
-          <p class="section-kicker">комната</p>
-          <h2>аниме</h2>
-          <p>мягкий экран, манга на полках, подушки на полу и маленькие талисманы.</p>
-          <div class="section-tags">
-            <span>манга</span>
-            <span>уютный экран</span>
-            <span>плейлист серий</span>
-          </div>
-        </article>
-
-        <article class="section-panel" data-panel="music">
-          <p class="section-kicker">уголок</p>
-          <h2>музыка</h2>
-          <p>винил, кассеты, дождь в колонках и тёплый звук ночной комнаты.</p>
-          <div class="section-tags">
-            <span>lo-fi</span>
-            <span>дорога</span>
-            <span>ночной город</span>
-          </div>
-        </article>
-
-        <article class="section-panel" data-panel="blog">
-          <p class="section-kicker">кабинет</p>
-          <h2>блог</h2>
-          <p>место для мыслей, заметок, дневниковых страниц и маленьких историй.</p>
-          <div class="section-tags">
-            <span>заметки</span>
-            <span>дневник</span>
-            <span>черновики</span>
-          </div>
-        </article>
-
-        <article class="section-panel" data-panel="friends">
-          <p class="section-kicker">гостиная</p>
-          <h2>друзья</h2>
-          <p>чайный столик, подушки, общие записки и ощущение, что тебя ждали.</p>
-          <div class="section-tags">
-            <span>гости</span>
-            <span>записки</span>
-            <span>тёплые комнаты</span>
-          </div>
-        </article>
       </div>
 
       <div class="room-label" aria-live="polite">
@@ -133,7 +83,9 @@
         <strong id="room-name">дом</strong>
       </div>
 
-      <form class="note-pad" id="note-form" aria-label="Оставить записку в доме">
+      <time class="room-clock" id="room-clock" datetime="">--:--</time>
+
+      <form class="note-pad" id="note-form" aria-label="Оставить записку в комнате">
         <label for="note-text">записка</label>
         <div class="note-row">
           <input id="note-text" type="text" maxlength="64" placeholder="оставить что-то тёплое">
@@ -146,7 +98,9 @@
         <span>дождь за окном</span>
       </div>
 
-      <button class="home-button" type="button" data-section="home">показать весь дом</button>
+      <div class="tea-steam" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
     </section>
   </main>
 

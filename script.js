@@ -1,64 +1,76 @@
-const sectionButtons = document.querySelectorAll("[data-section]");
+const roomButtons = document.querySelectorAll("[data-room-target]");
 const navPills = document.querySelectorAll(".nav-pill");
 const houseShell = document.querySelector(".house-shell");
-const panels = document.querySelectorAll("[data-panel]");
-const hotspots = document.querySelectorAll(".room-hotspot");
-const doorGlow = document.querySelector(".door-glow");
+const roomScenes = document.querySelectorAll("[data-room]");
 const roomName = document.querySelector("#room-name");
+const roomClock = document.querySelector("#room-clock");
 const noteForm = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-text");
 const houseNotes = document.querySelector("#house-notes");
 const character = document.querySelector("#character");
 const characterFrames = document.querySelectorAll("[data-character-frame]");
 
-let activeSection = "home";
+let activeRoom = "home";
+let isTransitioning = false;
 
-const sectionLabels = {
+const roomLabels = {
   home: "дом",
   books: "библиотека",
   anime: "аниме-комната",
-  music: "музыкальный уголок",
+  music: "музыкальная",
   blog: "кабинет",
   friends: "гостиная друзей",
 };
 
-const glowPoints = {
-  home: ["50%", "50%"],
-  books: ["17%", "54%"],
-  anime: ["37%", "54%"],
-  music: ["56%", "54%"],
-  blog: ["74%", "52%"],
-  friends: ["88%", "57%"],
+const roomCharacterStates = {
+  home: "lookingWindow",
+  books: "reading",
+  anime: "laptop",
+  music: "tea",
+  blog: "laptop",
+  friends: "tea",
 };
 
-const setActiveSection = (section) => {
-  activeSection = section;
-  const isHome = activeSection === "home";
+const setCharacterState = (state) => {
+  character.dataset.characterState = state;
 
-  houseShell.classList.toggle("is-section-open", !isHome);
-  roomName.textContent = sectionLabels[activeSection] || sectionLabels.home;
-
-  navPills.forEach((pill) => {
-    pill.classList.toggle("is-active", pill.dataset.section === activeSection);
+  characterFrames.forEach((frame) => {
+    frame.classList.toggle("is-active", frame.dataset.characterFrame === state);
   });
-
-  panels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.panel === activeSection);
-  });
-
-  hotspots.forEach((hotspot) => {
-    hotspot.classList.toggle("is-open", hotspot.dataset.section === activeSection);
-  });
-
-  const [x, y] = glowPoints[activeSection] || glowPoints.home;
-  doorGlow.style.setProperty("--glow-x", x);
-  doorGlow.style.setProperty("--glow-y", y);
-  doorGlow.classList.toggle("is-visible", !isHome);
 };
 
-sectionButtons.forEach((button) => {
+const showRoom = (room) => {
+  if (isTransitioning || room === activeRoom) {
+    return;
+  }
+
+  isTransitioning = true;
+  houseShell.classList.add("is-transitioning");
+
+  window.setTimeout(() => {
+    activeRoom = room;
+    houseShell.dataset.activeRoom = activeRoom;
+    roomName.textContent = roomLabels[activeRoom] || roomLabels.home;
+    setCharacterState(roomCharacterStates[activeRoom] || "lookingWindow");
+
+    roomScenes.forEach((scene) => {
+      scene.classList.toggle("is-active", scene.dataset.room === activeRoom);
+    });
+
+    navPills.forEach((pill) => {
+      pill.classList.toggle("is-active", pill.dataset.roomTarget === activeRoom);
+    });
+
+    window.setTimeout(() => {
+      houseShell.classList.remove("is-transitioning");
+      isTransitioning = false;
+    }, 300);
+  }, 340);
+};
+
+roomButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    setActiveSection(button.dataset.section);
+    showRoom(button.dataset.roomTarget);
   });
 });
 
@@ -79,34 +91,16 @@ noteForm.addEventListener("submit", (event) => {
   noteInput.focus();
 });
 
-const characterStates = ["reading", "tea", "laptop", "lookingWindow"];
-let characterTimer;
-
-const setCharacterState = (state) => {
-  character.dataset.characterState = state;
-
-  characterFrames.forEach((frame) => {
-    frame.classList.toggle("is-active", frame.dataset.characterFrame === state);
+const updateClock = () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
+
+  roomClock.textContent = time;
+  roomClock.dateTime = now.toISOString();
 };
 
-const scheduleCharacterIdle = () => {
-  const nextDelay = 15000 + Math.random() * 15000;
-
-  characterTimer = window.setTimeout(() => {
-    const currentState = character.dataset.characterState;
-    const nextStates = characterStates.filter((state) => state !== currentState);
-    const nextState = nextStates[Math.floor(Math.random() * nextStates.length)];
-
-    setCharacterState(nextState);
-    scheduleCharacterIdle();
-  }, nextDelay);
-};
-
-if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  scheduleCharacterIdle();
-}
-
-window.addEventListener("beforeunload", () => {
-  window.clearTimeout(characterTimer);
-});
+updateClock();
+window.setInterval(updateClock, 1000);
