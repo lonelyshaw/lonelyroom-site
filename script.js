@@ -3,9 +3,18 @@ const navPills = document.querySelectorAll(".nav-pill");
 const houseShell = document.querySelector(".house-shell");
 const roomScenes = document.querySelectorAll("[data-room]");
 const contentRooms = document.querySelectorAll("[data-content-room]");
+const roomClock = document.querySelector("#room-clock");
+const ambientToggle = document.querySelector("#ambient-toggle");
+const ambientNotes = document.querySelector("#ambient-notes");
 
 let activeRoom = "home";
 let isTransitioning = false;
+let audioContext;
+let ambientGain;
+let rainSource;
+let humOscillator;
+
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 
 const showRoom = (room) => {
   if (isTransitioning || room === activeRoom) {
@@ -104,7 +113,18 @@ document.querySelector("[data-add-book]").addEventListener("submit", (event) => 
   const item = document.createElement("article");
   item.className = "book-card";
   item.dataset.bookCard = "";
-  item.innerHTML = `<div><strong>${title}</strong><span>личная полка</span></div><button type="button" data-toggle-status>читаю сейчас</button>`;
+  const info = document.createElement("div");
+  const name = document.createElement("strong");
+  const meta = document.createElement("span");
+  const status = document.createElement("button");
+
+  name.textContent = title;
+  meta.textContent = "личная полка";
+  status.type = "button";
+  status.dataset.toggleStatus = "";
+  status.textContent = "читаю сейчас";
+  info.append(name, meta);
+  item.append(info, status);
   document.querySelector("#reading-list").prepend(item);
   input.value = "";
 });
@@ -121,7 +141,12 @@ document.querySelector("[data-add-anime]").addEventListener("submit", (event) =>
 
   const item = document.createElement("article");
   item.className = "anime-item";
-  item.innerHTML = `<strong>${title}</strong><span>добавлено в хочу посмотреть</span>`;
+  const name = document.createElement("strong");
+  const meta = document.createElement("span");
+
+  name.textContent = title;
+  meta.textContent = "добавлено в хочу посмотреть";
+  item.append(name, meta);
   document.querySelector('[data-anime-list="wishlist"]').append(item);
   input.value = "";
 });
@@ -129,7 +154,20 @@ document.querySelector("[data-add-anime]").addEventListener("submit", (event) =>
 document.querySelector("[data-add-track]").addEventListener("click", () => {
   const item = document.createElement("article");
   item.className = "track-card";
-  item.innerHTML = '<button type="button" data-play-track>▶</button><div><strong>New Rain Song</strong><span>новый трек</span></div><span>03:00</span>';
+  const play = document.createElement("button");
+  const info = document.createElement("div");
+  const title = document.createElement("strong");
+  const genre = document.createElement("span");
+  const duration = document.createElement("span");
+
+  play.type = "button";
+  play.dataset.playTrack = "";
+  play.textContent = "▶";
+  title.textContent = "New Rain Song";
+  genre.textContent = "новый трек";
+  duration.textContent = "03:00";
+  info.append(title, genre);
+  item.append(play, info, duration);
   document.querySelector("#track-list").prepend(item);
 });
 
@@ -145,7 +183,14 @@ document.querySelector("[data-add-entry]").addEventListener("submit", (event) =>
 
   const entry = document.createElement("article");
   entry.className = "blog-entry";
-  entry.innerHTML = `<time>сегодня</time><strong>${title}</strong><p>Новая запись из комнаты Lonelyroom.</p>`;
+  const date = document.createElement("time");
+  const heading = document.createElement("strong");
+  const text = document.createElement("p");
+
+  date.textContent = "сегодня";
+  heading.textContent = title;
+  text.textContent = "Новая запись из комнаты Lonelyroom.";
+  entry.append(date, heading, text);
   document.querySelector("#entry-list").prepend(entry);
   input.value = "";
 });
@@ -161,7 +206,12 @@ document.querySelector("[data-add-friend-message]").addEventListener("submit", (
   }
 
   const message = document.createElement("article");
-  message.innerHTML = `<strong>гость</strong><p>${text}</p>`;
+  const author = document.createElement("strong");
+  const body = document.createElement("p");
+
+  author.textContent = "гость";
+  body.textContent = text;
+  message.append(author, body);
   document.querySelector("#guestbook").prepend(message);
 
   const note = document.createElement("span");
@@ -169,3 +219,114 @@ document.querySelector("[data-add-friend-message]").addEventListener("submit", (
   document.querySelector("#visitor-notes").prepend(note);
   input.value = "";
 });
+
+const updateClock = () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  roomClock.textContent = time;
+  roomClock.dateTime = now.toISOString();
+};
+
+const randomNoteTexts = [
+  "проверь чай",
+  "закрой окно позже",
+  "оставить плед",
+  "дождь стал тише",
+  "написать пару строк",
+  "добавить книгу",
+  "включить музыку",
+];
+
+const addAmbientNote = () => {
+  if (ambientNotes.children.length > 5) {
+    ambientNotes.firstElementChild.remove();
+  }
+
+  const note = document.createElement("span");
+  note.textContent = randomNoteTexts[Math.floor(Math.random() * randomNoteTexts.length)];
+  ambientNotes.append(note);
+};
+
+const createNoiseBuffer = (context) => {
+  const bufferSize = context.sampleRate * 2;
+  const buffer = context.createBuffer(1, bufferSize, context.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < bufferSize; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * 0.35;
+  }
+
+  return buffer;
+};
+
+const startAmbientSound = async () => {
+  if (!AudioContextClass) {
+    ambientToggle.textContent = "звук недоступен";
+    return false;
+  }
+
+  audioContext = audioContext || new AudioContextClass();
+  await audioContext.resume();
+
+  ambientGain = audioContext.createGain();
+  ambientGain.gain.value = 0.035;
+  ambientGain.connect(audioContext.destination);
+
+  const rainFilter = audioContext.createBiquadFilter();
+  rainFilter.type = "lowpass";
+  rainFilter.frequency.value = 1300;
+
+  rainSource = audioContext.createBufferSource();
+  rainSource.buffer = createNoiseBuffer(audioContext);
+  rainSource.loop = true;
+  rainSource.connect(rainFilter);
+  rainFilter.connect(ambientGain);
+  rainSource.start();
+
+  humOscillator = audioContext.createOscillator();
+  humOscillator.type = "sine";
+  humOscillator.frequency.value = 92;
+
+  const humGain = audioContext.createGain();
+  humGain.gain.value = 0.012;
+  humOscillator.connect(humGain);
+  humGain.connect(ambientGain);
+  humOscillator.start();
+  return true;
+};
+
+const stopAmbientSound = () => {
+  rainSource?.stop();
+  humOscillator?.stop();
+  rainSource = undefined;
+  humOscillator = undefined;
+  ambientGain?.disconnect();
+  ambientGain = undefined;
+};
+
+ambientToggle.addEventListener("click", async () => {
+  const isOn = ambientToggle.getAttribute("aria-pressed") === "true";
+
+  if (isOn) {
+    stopAmbientSound();
+    ambientToggle.setAttribute("aria-pressed", "false");
+    ambientToggle.textContent = "звук: выкл";
+    return;
+  }
+
+  const started = await startAmbientSound();
+  if (!started) {
+    return;
+  }
+
+  ambientToggle.setAttribute("aria-pressed", "true");
+  ambientToggle.textContent = "звук: дождь";
+});
+
+updateClock();
+window.setInterval(updateClock, 1000);
+window.setInterval(addAmbientNote, 18000);
