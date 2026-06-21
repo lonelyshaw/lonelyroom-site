@@ -1,56 +1,421 @@
-const roomButtons = document.querySelectorAll("[data-open-room]");
-const roomPanels = document.querySelectorAll("[data-room]");
+const roomButtons = document.querySelectorAll("[data-room-target]");
 const navPills = document.querySelectorAll(".nav-pill");
-const roomObjects = document.querySelectorAll(".room-object");
-const noteForm = document.querySelector("#note-form");
-const noteInput = document.querySelector("#note-text");
-const tableNotes = document.querySelector("#table-notes");
+const houseShell = document.querySelector(".house-shell");
+const roomScenes = document.querySelectorAll("[data-room]");
+const contentRooms = document.querySelectorAll("[data-content-room]");
+const roomClock = document.querySelector("#room-clock");
+const ambientToggle = document.querySelector("#ambient-toggle");
+const ambientNotes = document.querySelector("#ambient-notes");
+const roomArtElements = document.querySelectorAll(".room-art");
 
-const openRoom = (roomName) => {
-  roomPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.room === roomName);
-  });
+let activeRoom = "home";
+let isTransitioning = false;
+let audioContext;
+let ambientGain;
+let rainSource;
+let humOscillator;
 
-  navPills.forEach((pill) => {
-    pill.classList.toggle("is-active", pill.dataset.openRoom === roomName);
-  });
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+const showRoom = (room) => {
+  if (isTransitioning || room === activeRoom) {
+    return;
+  }
+
+  isTransitioning = true;
+  houseShell.classList.add("is-transitioning");
+
+  window.setTimeout(() => {
+    activeRoom = room;
+    houseShell.dataset.activeRoom = activeRoom;
+
+    roomScenes.forEach((scene) => {
+      scene.classList.toggle("is-active", scene.dataset.room === activeRoom);
+    });
+
+    contentRooms.forEach((content) => {
+      content.classList.toggle("is-active", content.dataset.contentRoom === activeRoom);
+    });
+
+    navPills.forEach((pill) => {
+      pill.classList.toggle("is-active", pill.dataset.roomTarget === activeRoom);
+    });
+
+    renderAmbientNotes(activeRoom);
+
+    window.setTimeout(() => {
+      houseShell.classList.remove("is-transitioning");
+      isTransitioning = false;
+    }, 300);
+  }, 320);
 };
 
 roomButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    openRoom(button.dataset.openRoom);
+    showRoom(button.dataset.roomTarget);
   });
 });
 
-roomObjects.forEach((object) => {
-  object.addEventListener("click", () => {
-    roomObjects.forEach((item) => {
-      if (item !== object) {
-        item.classList.remove("is-open");
-      }
-    });
+document.addEventListener("click", (event) => {
+  const statusButton = event.target.closest("[data-toggle-status]");
+  const playlistButton = event.target.closest("[data-playlist]");
+  const trackButton = event.target.closest("[data-play-track]");
 
-    object.classList.toggle("is-open");
-  });
+  if (statusButton) {
+    const card = statusButton.closest("[data-book-card]");
+    card.classList.toggle("is-done");
+    statusButton.textContent = card.classList.contains("is-done") ? "прочитано" : "читаю сейчас";
+  }
 
-  object.addEventListener("blur", () => {
-    object.classList.remove("is-open");
+  if (playlistButton) {
+    document.querySelectorAll("[data-playlist]").forEach((button) => button.classList.remove("is-active"));
+    playlistButton.classList.add("is-active");
+  }
+
+  if (trackButton) {
+    const card = trackButton.closest(".track-card");
+    card.classList.toggle("is-playing");
+    trackButton.textContent = card.classList.contains("is-playing") ? "Ⅱ" : "▶";
+  }
+});
+
+const addNote = (type, text) => {
+  const list = document.querySelector(`[data-note-list="${type}"]`);
+  const note = document.createElement("p");
+  note.textContent = text;
+  list.prepend(note);
+};
+
+document.querySelectorAll("[data-note-form]").forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const type = form.dataset.noteForm;
+    const textarea = form.elements.note;
+    const text = textarea.value.trim();
+
+    if (!text) {
+      textarea.focus();
+      return;
+    }
+
+    addNote(type, text);
+    textarea.value = "";
   });
 });
 
-noteForm.addEventListener("submit", (event) => {
+document.querySelector("[data-add-book]").addEventListener("submit", (event) => {
   event.preventDefault();
+  const input = event.currentTarget.elements.title;
+  const title = input.value.trim();
 
-  const text = noteInput.value.trim();
-
-  if (!text) {
-    noteInput.focus();
+  if (!title) {
+    input.focus();
     return;
   }
 
+  const item = document.createElement("article");
+  item.className = "book-card";
+  item.dataset.bookCard = "";
+  const info = document.createElement("div");
+  const name = document.createElement("strong");
+  const meta = document.createElement("span");
+  const status = document.createElement("button");
+
+  name.textContent = title;
+  meta.textContent = "личная полка";
+  status.type = "button";
+  status.dataset.toggleStatus = "";
+  status.textContent = "читаю сейчас";
+  info.append(name, meta);
+  item.append(info, status);
+  document.querySelector("#reading-list").prepend(item);
+  input.value = "";
+});
+
+document.querySelector("[data-add-anime]").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = event.currentTarget.elements.title;
+  const title = input.value.trim();
+
+  if (!title) {
+    input.focus();
+    return;
+  }
+
+  const item = document.createElement("article");
+  item.className = "anime-item";
+  const name = document.createElement("strong");
+  const meta = document.createElement("span");
+
+  name.textContent = title;
+  meta.textContent = "добавлено в хочу посмотреть";
+  item.append(name, meta);
+  document.querySelector('[data-anime-list="wishlist"]').append(item);
+  input.value = "";
+});
+
+document.querySelector("[data-add-track]").addEventListener("click", () => {
+  const item = document.createElement("article");
+  item.className = "track-card";
+  const play = document.createElement("button");
+  const info = document.createElement("div");
+  const title = document.createElement("strong");
+  const genre = document.createElement("span");
+  const duration = document.createElement("span");
+
+  play.type = "button";
+  play.dataset.playTrack = "";
+  play.textContent = "▶";
+  title.textContent = "Новая песня дождя";
+  genre.textContent = "новый трек";
+  duration.textContent = "03:00";
+  info.append(title, genre);
+  item.append(play, info, duration);
+  document.querySelector("#track-list").prepend(item);
+});
+
+document.querySelector("[data-add-entry]").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = event.currentTarget.elements.title;
+  const title = input.value.trim();
+
+  if (!title) {
+    input.focus();
+    return;
+  }
+
+  const entry = document.createElement("article");
+  entry.className = "blog-entry";
+  const date = document.createElement("time");
+  const heading = document.createElement("strong");
+  const text = document.createElement("p");
+
+  date.textContent = "сегодня";
+  heading.textContent = title;
+  text.textContent = "Новая запись из комнаты Lonelyroom.";
+  entry.append(date, heading, text);
+  document.querySelector("#entry-list").prepend(entry);
+  input.value = "";
+});
+
+document.querySelector("[data-add-friend-message]").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = event.currentTarget.elements.message;
+  const text = input.value.trim();
+
+  if (!text) {
+    input.focus();
+    return;
+  }
+
+  const message = document.createElement("article");
+  const author = document.createElement("strong");
+  const body = document.createElement("p");
+
+  author.textContent = "гость";
+  body.textContent = text;
+  message.append(author, body);
+  document.querySelector("#guestbook").prepend(message);
+
   const note = document.createElement("span");
   note.textContent = text;
-  tableNotes.append(note);
-  noteInput.value = "";
-  noteInput.focus();
+  document.querySelector("#visitor-notes").prepend(note);
+  input.value = "";
 });
+
+const updateClock = () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  roomClock.textContent = time;
+  roomClock.dateTime = now.toISOString();
+};
+
+const updateTimeAtmosphere = () => {
+  const hour = new Date().getHours();
+  let timeOfDay = "night";
+
+  if (hour >= 6 && hour < 17) {
+    timeOfDay = "morning";
+  } else if (hour >= 17 && hour < 23) {
+    timeOfDay = "evening";
+  }
+
+  document.body.dataset.time = timeOfDay;
+};
+
+const ambientNotesByRoom = {
+  home: [
+    "заварить чай",
+    "открыть окно",
+    "покормить кота",
+    "посмотреть на дождь",
+    "вернуться вечером",
+  ],
+  books: [
+    "дочитать главу",
+    "закладка на столе",
+    "эта фраза важная",
+    "чай и полка",
+    "проверить книгу у окна",
+  ],
+  anime: [
+    "Фрирен сегодня",
+    "Нацумэ для вечера",
+    "серия под плед",
+    "мягкий экран",
+    "тихое вау",
+  ],
+  music: [
+    "дождь и окно",
+    "дорога ночью",
+    "тихий фокус",
+    "винил у лампы",
+    "песня для дома",
+  ],
+  blog: [
+    "написать мысль",
+    "идея для поста",
+    "сохранить воспоминание",
+    "строчка перед сном",
+    "не потерять чувство",
+  ],
+  friends: [
+    "заходи на чай",
+    "плед на диване",
+    "оставь записку",
+    "тебя ждали",
+    "лампа включена",
+  ],
+};
+
+const renderAmbientNotes = (room) => {
+  const notes = ambientNotesByRoom[room] || ambientNotesByRoom.home;
+  ambientNotes.replaceChildren();
+
+  notes.slice(0, 2).forEach((text) => {
+    const note = document.createElement("span");
+    note.textContent = text;
+    ambientNotes.append(note);
+  });
+};
+
+const addAmbientNote = () => {
+  if (ambientNotes.children.length > 5) {
+    ambientNotes.firstElementChild.remove();
+  }
+
+  const notes = ambientNotesByRoom[activeRoom] || ambientNotesByRoom.home;
+  const note = document.createElement("span");
+  note.textContent = notes[Math.floor(Math.random() * notes.length)];
+  ambientNotes.append(note);
+};
+
+const updateParallax = (event) => {
+  const rect = houseShell.getBoundingClientRect();
+  const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+  const y = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+
+  roomArtElements.forEach((image) => {
+    image.style.setProperty("--parallax-x", `${x.toFixed(2)}px`);
+    image.style.setProperty("--parallax-y", `${y.toFixed(2)}px`);
+  });
+};
+
+const resetParallax = () => {
+  roomArtElements.forEach((image) => {
+    image.style.setProperty("--parallax-x", "0px");
+    image.style.setProperty("--parallax-y", "0px");
+  });
+};
+
+const createNoiseBuffer = (context) => {
+  const bufferSize = context.sampleRate * 2;
+  const buffer = context.createBuffer(1, bufferSize, context.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < bufferSize; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * 0.35;
+  }
+
+  return buffer;
+};
+
+const startAmbientSound = async () => {
+  if (!AudioContextClass) {
+    ambientToggle.textContent = "звук недоступен";
+    return false;
+  }
+
+  audioContext = audioContext || new AudioContextClass();
+  await audioContext.resume();
+
+  ambientGain = audioContext.createGain();
+  ambientGain.gain.value = 0.035;
+  ambientGain.connect(audioContext.destination);
+
+  const rainFilter = audioContext.createBiquadFilter();
+  rainFilter.type = "lowpass";
+  rainFilter.frequency.value = 1300;
+
+  rainSource = audioContext.createBufferSource();
+  rainSource.buffer = createNoiseBuffer(audioContext);
+  rainSource.loop = true;
+  rainSource.connect(rainFilter);
+  rainFilter.connect(ambientGain);
+  rainSource.start();
+
+  humOscillator = audioContext.createOscillator();
+  humOscillator.type = "sine";
+  humOscillator.frequency.value = 92;
+
+  const humGain = audioContext.createGain();
+  humGain.gain.value = 0.012;
+  humOscillator.connect(humGain);
+  humGain.connect(ambientGain);
+  humOscillator.start();
+  return true;
+};
+
+const stopAmbientSound = () => {
+  rainSource?.stop();
+  humOscillator?.stop();
+  rainSource = undefined;
+  humOscillator = undefined;
+  ambientGain?.disconnect();
+  ambientGain = undefined;
+};
+
+ambientToggle.addEventListener("click", async () => {
+  const isOn = ambientToggle.getAttribute("aria-pressed") === "true";
+
+  if (isOn) {
+    stopAmbientSound();
+    ambientToggle.setAttribute("aria-pressed", "false");
+    ambientToggle.textContent = "звук: выкл";
+    return;
+  }
+
+  const started = await startAmbientSound();
+  if (!started) {
+    return;
+  }
+
+  ambientToggle.setAttribute("aria-pressed", "true");
+  ambientToggle.textContent = "звук: дождь";
+});
+
+updateClock();
+updateTimeAtmosphere();
+renderAmbientNotes(activeRoom);
+window.setInterval(updateClock, 1000);
+window.setInterval(updateTimeAtmosphere, 60000);
+window.setInterval(addAmbientNote, 18000);
+
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  houseShell.addEventListener("pointermove", updateParallax);
+  houseShell.addEventListener("pointerleave", resetParallax);
+}
