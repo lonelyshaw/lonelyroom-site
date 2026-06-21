@@ -6,6 +6,7 @@ const contentRooms = document.querySelectorAll("[data-content-room]");
 const roomClock = document.querySelector("#room-clock");
 const ambientToggle = document.querySelector("#ambient-toggle");
 const ambientNotes = document.querySelector("#ambient-notes");
+const roomArtElements = document.querySelectorAll(".room-art");
 
 let activeRoom = "home";
 let isTransitioning = false;
@@ -163,7 +164,7 @@ document.querySelector("[data-add-track]").addEventListener("click", () => {
   play.type = "button";
   play.dataset.playTrack = "";
   play.textContent = "▶";
-  title.textContent = "New Rain Song";
+  title.textContent = "Новая песня дождя";
   genre.textContent = "новый трек";
   duration.textContent = "03:00";
   info.append(title, genre);
@@ -231,14 +232,30 @@ const updateClock = () => {
   roomClock.dateTime = now.toISOString();
 };
 
+const updateTimeAtmosphere = () => {
+  const hour = new Date().getHours();
+  let timeOfDay = "night";
+
+  if (hour >= 6 && hour < 17) {
+    timeOfDay = "morning";
+  } else if (hour >= 17 && hour < 23) {
+    timeOfDay = "evening";
+  }
+
+  document.body.dataset.time = timeOfDay;
+};
+
 const randomNoteTexts = [
-  "проверь чай",
-  "закрой окно позже",
-  "оставить плед",
-  "дождь стал тише",
-  "написать пару строк",
-  "добавить книгу",
-  "включить музыку",
+  "заварить чай",
+  "открыть окно",
+  "дочитать главу",
+  "проверить чайник",
+  "покормить кота",
+  "посмотреть на дождь",
+  "оставить лампу включённой",
+  "написать мысль",
+  "сохранить воспоминание",
+  "вернуться вечером",
 ];
 
 const addAmbientNote = () => {
@@ -249,6 +266,24 @@ const addAmbientNote = () => {
   const note = document.createElement("span");
   note.textContent = randomNoteTexts[Math.floor(Math.random() * randomNoteTexts.length)];
   ambientNotes.append(note);
+};
+
+const updateParallax = (event) => {
+  const rect = houseShell.getBoundingClientRect();
+  const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+  const y = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+
+  roomArtElements.forEach((image) => {
+    image.style.setProperty("--parallax-x", `${x.toFixed(2)}px`);
+    image.style.setProperty("--parallax-y", `${y.toFixed(2)}px`);
+  });
+};
+
+const resetParallax = () => {
+  roomArtElements.forEach((image) => {
+    image.style.setProperty("--parallax-x", "0px");
+    image.style.setProperty("--parallax-y", "0px");
+  });
 };
 
 const createNoiseBuffer = (context) => {
@@ -328,5 +363,12 @@ ambientToggle.addEventListener("click", async () => {
 });
 
 updateClock();
+updateTimeAtmosphere();
 window.setInterval(updateClock, 1000);
+window.setInterval(updateTimeAtmosphere, 60000);
 window.setInterval(addAmbientNote, 18000);
+
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  houseShell.addEventListener("pointermove", updateParallax);
+  houseShell.addEventListener("pointerleave", resetParallax);
+}

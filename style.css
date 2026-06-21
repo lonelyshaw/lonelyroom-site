@@ -8,6 +8,8 @@
   --gold: #ffd98a;
   --rose: #f3a9bd;
   --shadow: rgba(3, 5, 13, 0.5);
+  --parallax-x: 0px;
+  --parallax-y: 0px;
 }
 
 * {
@@ -159,6 +161,18 @@ button {
     radial-gradient(circle at 50% 50%, transparent 54%, rgba(4, 5, 12, 0.24));
 }
 
+.house-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 28% 70%, rgba(255, 217, 138, 0.08), transparent 22%),
+    radial-gradient(circle at 78% 68%, rgba(243, 169, 189, 0.07), transparent 22%);
+  animation: livingShadow 12s ease-in-out infinite alternate;
+}
+
 .room-stage,
 .room-scene,
 .room-art {
@@ -182,6 +196,20 @@ button {
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0) scale(1.018);
+  transition: transform 500ms ease-out;
+}
+
+body[data-time="morning"] .room-art {
+  filter: brightness(1.08) saturate(1.02);
+}
+
+body[data-time="evening"] .room-art {
+  filter: brightness(1.02) saturate(1.08) sepia(0.04);
+}
+
+body[data-time="night"] .room-art {
+  filter: brightness(0.86) saturate(0.95);
 }
 
 .transition-curtain {
@@ -216,6 +244,15 @@ button {
   mix-blend-mode: screen;
 }
 
+body[data-time="morning"] .rain-layer,
+body[data-time="evening"] .rain-layer {
+  opacity: 0.24;
+}
+
+body[data-time="night"] .rain-layer {
+  opacity: 0.58;
+}
+
 .rain-layer span {
   position: absolute;
   top: -26%;
@@ -244,6 +281,18 @@ button {
   opacity: 0.82;
 }
 
+body[data-time="morning"] .fairy-lights {
+  opacity: 0.34;
+}
+
+body[data-time="evening"] .fairy-lights {
+  opacity: 0.9;
+}
+
+body[data-time="night"] .fairy-lights {
+  opacity: 0.76;
+}
+
 .fairy-lights span {
   position: absolute;
   width: 9px;
@@ -268,41 +317,72 @@ button {
   width: 10%;
   height: 8%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 241, 216, 0.08), transparent 62%);
+  background:
+    radial-gradient(ellipse at 48% 66%, rgba(5, 5, 9, 0.72) 0 22%, transparent 23%),
+    radial-gradient(circle, rgba(255, 241, 216, 0.08), transparent 62%);
   animation: catSleep 3.4s ease-in-out infinite;
+}
+
+.sleeping-cat::before {
+  content: "";
+  position: absolute;
+  left: 38%;
+  top: 33%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 217, 138, 0.85);
+  box-shadow: 14px 0 0 rgba(255, 217, 138, 0.85);
+  animation: catBlink 9s steps(2, end) infinite;
+}
+
+.sleeping-cat::after {
+  content: "";
+  position: absolute;
+  right: 16%;
+  bottom: 28%;
+  width: 32%;
+  height: 18%;
+  border: 5px solid rgba(5, 5, 9, 0.72);
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0 999px 0 0;
+  animation: catTail 7s ease-in-out infinite alternate;
 }
 
 .floating-notes {
   position: absolute;
-  right: 30px;
-  top: 24%;
+  right: 38px;
+  top: 22%;
   display: flex;
   flex-wrap: wrap;
-  max-width: 240px;
-  gap: 8px;
+  max-width: 210px;
+  gap: 7px;
+  filter: blur(0.35px);
+  opacity: 0.52;
 }
 
 .floating-notes span {
   display: inline-grid;
   place-items: center;
-  min-width: 86px;
-  min-height: 42px;
-  padding: 8px 10px;
+  min-width: 68px;
+  min-height: 32px;
+  padding: 6px 8px;
   color: #583443;
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   line-height: 1.25;
   text-align: center;
   border-radius: 8px 8px 16px 8px;
-  background: rgba(255, 230, 188, 0.9);
-  box-shadow: 0 10px 20px rgba(3, 5, 13, 0.18);
+  background: rgba(255, 230, 188, 0.56);
+  box-shadow: 0 8px 16px rgba(3, 5, 13, 0.12);
   transform: rotate(-3deg);
-  animation: noteFloat 7s ease-in-out infinite alternate;
+  animation: noteFloat 14s ease-in-out infinite alternate;
 }
 
 .floating-notes span:nth-child(even) {
-  background: rgba(255, 203, 213, 0.92);
+  background: rgba(255, 203, 213, 0.52);
   transform: rotate(4deg);
-  animation-delay: -2s;
+  animation-delay: -5s;
 }
 
 .room-clock,
@@ -465,6 +545,14 @@ h3 {
   margin-bottom: 20px;
 }
 
+.room-intro {
+  max-width: 520px;
+  margin: 8px 0 0;
+  color: rgba(255, 241, 216, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
 .quick-add {
   display: flex;
   gap: 8px;
@@ -615,6 +703,11 @@ select:focus {
   flex-direction: column;
 }
 
+.anime-item small {
+  color: rgba(255, 241, 216, 0.48);
+  font-size: 0.72rem;
+}
+
 .playlist-stack {
   display: grid;
   gap: 10px;
@@ -680,9 +773,24 @@ select:focus {
   50% { opacity: 0.38; transform: scale(1.08); }
 }
 
+@keyframes catBlink {
+  0%, 88%, 100% { opacity: 0.85; }
+  90%, 94% { opacity: 0.05; }
+}
+
+@keyframes catTail {
+  from { transform: rotate(-4deg); opacity: 0.5; }
+  to { transform: rotate(6deg); opacity: 0.72; }
+}
+
+@keyframes livingShadow {
+  from { opacity: 0.64; transform: translate3d(-6px, 0, 0); }
+  to { opacity: 0.96; transform: translate3d(8px, -4px, 0); }
+}
+
 @keyframes noteFloat {
-  from { translate: 0 0; }
-  to { translate: 0 -6px; }
+  from { translate: 0 0; rotate: -1deg; }
+  to { translate: 0 -18px; rotate: 2deg; }
 }
 
 @media (max-width: 980px) {

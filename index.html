@@ -57,8 +57,8 @@
         </div>
         <div class="sleeping-cat"></div>
         <div class="floating-notes" id="ambient-notes">
-          <span>проверь чай</span>
-          <span>вечером дождь</span>
+          <span>заварить чай</span>
+          <span>посмотреть на дождь</span>
         </div>
       </div>
 
@@ -67,9 +67,9 @@
 
       <section class="content-room is-active" data-content-room="home" aria-labelledby="home-title">
         <div class="home-panel">
-          <p class="eyebrow">личное пространство</p>
+          <p class="eyebrow">Дом для тихих вечеров</p>
           <h1 id="home-title">Lonelyroom</h1>
-          <p>Выбирай комнату сверху: каждая теперь хранит реальные списки, заметки и записи.</p>
+          <p>Дом любимых историй, музыки, заметок и маленьких вечерних воспоминаний.</p>
           <div class="home-grid">
             <button type="button" data-room-target="books">книги</button>
             <button type="button" data-room-target="anime">аниме</button>
@@ -86,6 +86,7 @@
             <div>
               <p class="eyebrow">библиотека</p>
               <h2 id="books-title">Книги</h2>
+              <p class="room-intro">Книжная комната того же дома: полки, заметки и всё, что читается при тёплой лампе.</p>
             </div>
             <form class="quick-add" data-add-book>
               <input name="title" type="text" placeholder="добавить книгу" required>
@@ -143,6 +144,7 @@
             <div>
               <p class="eyebrow">аниме-комната</p>
               <h2 id="anime-title">Аниме</h2>
+              <p class="room-intro">Мягкая комната с мангой, фигурками, экраном и списками для спокойного вечера.</p>
             </div>
             <form class="quick-add" data-add-anime>
               <input name="title" type="text" placeholder="добавить тайтл" required>
@@ -154,25 +156,27 @@
             <section class="content-card anime-column" data-anime-list="current">
               <h3>Смотрю сейчас</h3>
               <article class="anime-item">
-                <strong>Frieren</strong>
+                <strong>Провожающая в последний путь Фрирен</strong>
+                <small>Frieren</small>
                 <span>12/28 серий</span>
                 <select aria-label="рейтинг Frieren"><option>★ 10</option><option>★ 9</option><option>★ 8</option></select>
               </article>
               <article class="anime-item">
-                <strong>Natsume Yuujinchou</strong>
+                <strong>Тетрадь дружбы Нацумэ</strong>
+                <small>Natsume Yuujinchou</small>
                 <span>уютный вечер</span>
                 <select aria-label="рейтинг Natsume"><option>★ 9</option><option>★ 10</option><option>★ 8</option></select>
               </article>
             </section>
             <section class="content-card anime-column" data-anime-list="watched">
               <h3>Просмотрено</h3>
-              <article class="anime-item"><strong>Violet Evergarden</strong><span>★ 10</span></article>
-              <article class="anime-item"><strong>Barakamon</strong><span>★ 9</span></article>
+              <article class="anime-item"><strong>Вайолет Эвергарден</strong><small>Violet Evergarden</small><span>★ 10</span></article>
+              <article class="anime-item"><strong>Баракамон</strong><small>Barakamon</small><span>★ 9</span></article>
             </section>
             <section class="content-card anime-column" data-anime-list="wishlist">
               <h3>Хочу посмотреть</h3>
-              <article class="anime-item"><strong>Mushishi</strong><span>медленно и тихо</span></article>
-              <article class="anime-item"><strong>Skip and Loafer</strong><span>для доброго дня</span></article>
+              <article class="anime-item"><strong>Мастер Муси</strong><small>Mushishi</small><span>медленно и тихо</span></article>
+              <article class="anime-item"><strong>Беззаботные дни</strong><small>Skip and Loafer</small><span>для доброго дня</span></article>
             </section>
           </div>
         </div>
@@ -184,6 +188,7 @@
             <div>
               <p class="eyebrow">музыкальная</p>
               <h2 id="music-title">Музыка</h2>
+              <p class="room-intro">Музыкальный уголок дома: плейлисты, треки и звук дождя между песнями.</p>
             </div>
             <button class="secondary-action" type="button" data-add-track>добавить трек</button>
           </header>
@@ -202,17 +207,17 @@
               <div class="track-list" id="track-list">
                 <article class="track-card">
                   <button type="button" data-play-track>▶</button>
-                  <div><strong>Night Walk</strong><span>lo-fi / rain</span></div>
+                  <div><strong>Ночная прогулка</strong><span>лоу-фай / дождь</span></div>
                   <span>03:12</span>
                 </article>
                 <article class="track-card">
                   <button type="button" data-play-track>▶</button>
-                  <div><strong>Window Light</strong><span>ambient</span></div>
+                  <div><strong>Свет у окна</strong><span>эмбиент</span></div>
                   <span>04:28</span>
                 </article>
                 <article class="track-card">
                   <button type="button" data-play-track>▶</button>
-                  <div><strong>Soft Train Home</strong><span>indie</span></div>
+                  <div><strong>Тихий поезд домой</strong><span>инди</span></div>
                   <span>02:57</span>
                 </article>
               </div>
@@ -227,6 +232,7 @@
             <div>
               <p class="eyebrow">кабинет</p>
               <h2 id="blog-title">Блог</h2>
+              <p class="room-intro">Рабочий кабинет с дневником, черновиками и мыслями, которые хочется сохранить.</p>
             </div>
             <form class="quick-add" data-add-entry>
               <input name="title" type="text" placeholder="тема записи" required>
@@ -268,6 +274,7 @@
             <div>
               <p class="eyebrow">гостиная друзей</p>
               <h2 id="friends-title">Друзья</h2>
+              <p class="room-intro">Гостиная с чаем, сообщениями и записками посетителей.</p>
             </div>
             <form class="quick-add" data-add-friend-message>
               <input name="message" type="text" placeholder="сообщение в гостевую" required>
@@ -279,8 +286,8 @@
             <section class="content-card span-2">
               <h3>Гостевая книга</h3>
               <div class="guestbook" id="guestbook">
-                <article><strong>mooncat</strong><p>зашла оставить тёплый чай и плед.</p></article>
-                <article><strong>rainyfox</strong><p>тут очень тихо. вернусь вечером.</p></article>
+                <article><strong>лунный кот</strong><p>зашла оставить тёплый чай и плед.</p></article>
+                <article><strong>дождливая лиса</strong><p>тут очень тихо. вернусь вечером.</p></article>
               </div>
             </section>
             <section class="content-card">
