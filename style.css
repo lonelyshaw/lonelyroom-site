@@ -476,6 +476,152 @@ body[data-time="night"] .fairy-lights {
   margin: 0 auto;
 }
 
+.content-shell::before {
+  content: "";
+  position: sticky;
+  top: -24px;
+  display: block;
+  height: 0;
+}
+
+.house-shell[data-active-room="books"] .content-shell {
+  color: #3d2b24;
+  background:
+    linear-gradient(90deg, rgba(116, 77, 50, 0.08) 0 1px, transparent 1px 34px),
+    linear-gradient(180deg, rgba(255, 246, 218, 0.9), rgba(232, 203, 164, 0.86));
+}
+
+.house-shell[data-active-room="books"] .content-card,
+.house-shell[data-active-room="books"] .book-card,
+.house-shell[data-active-room="books"] .note-list p {
+  color: #3d2b24;
+  border-color: rgba(99, 65, 39, 0.22);
+  background: rgba(255, 250, 226, 0.72);
+  box-shadow: 0 10px 24px rgba(72, 45, 24, 0.14);
+}
+
+.house-shell[data-active-room="books"] .book-card {
+  border-left: 6px solid rgba(152, 105, 64, 0.45);
+  border-radius: 10px;
+}
+
+.house-shell[data-active-room="books"] .eyebrow,
+.house-shell[data-active-room="books"] h2,
+.house-shell[data-active-room="books"] h3,
+.house-shell[data-active-room="books"] .book-card span,
+.house-shell[data-active-room="books"] .soft-list,
+.house-shell[data-active-room="books"] .note-list {
+  color: #4a3327;
+}
+
+.house-shell[data-active-room="anime"] .content-shell {
+  background: rgba(28, 24, 58, 0.62);
+}
+
+.house-shell[data-active-room="anime"] .content-card {
+  border-color: rgba(255, 210, 235, 0.24);
+  background: rgba(255, 241, 250, 0.14);
+}
+
+.house-shell[data-active-room="anime"] .anime-item {
+  position: relative;
+  border-radius: 10px 10px 18px 18px;
+  border: 8px solid rgba(255, 241, 250, 0.72);
+  border-bottom-width: 22px;
+  background: rgba(30, 28, 62, 0.42);
+  box-shadow: 0 14px 30px rgba(9, 7, 22, 0.22);
+}
+
+.house-shell[data-active-room="anime"] .anime-item:nth-child(even) {
+  rotate: -1.2deg;
+}
+
+.house-shell[data-active-room="anime"] .anime-item:nth-child(odd) {
+  rotate: 1deg;
+}
+
+.house-shell[data-active-room="music"] .content-shell {
+  background: rgba(38, 25, 22, 0.62);
+}
+
+.house-shell[data-active-room="music"] .content-card {
+  border-color: rgba(255, 190, 124, 0.24);
+  background: rgba(73, 45, 34, 0.48);
+}
+
+.house-shell[data-active-room="music"] .track-card,
+.house-shell[data-active-room="music"] .playlist-stack button {
+  border-radius: 12px;
+  border-color: rgba(255, 210, 154, 0.26);
+  background:
+    linear-gradient(90deg, rgba(255, 217, 138, 0.14) 0 18px, transparent 18px),
+    rgba(30, 18, 18, 0.34);
+}
+
+.house-shell[data-active-room="music"] .track-card::after {
+  content: "";
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 217, 138, 0.75) 0 4px, rgba(9, 8, 12, 0.8) 5px 15px, transparent 16px);
+}
+
+.house-shell[data-active-room="blog"] .content-shell {
+  color: #3b2b2b;
+  background:
+    linear-gradient(90deg, rgba(112, 70, 66, 0.08) 0 1px, transparent 1px 32px),
+    rgba(255, 239, 213, 0.9);
+}
+
+.house-shell[data-active-room="blog"] .content-card,
+.house-shell[data-active-room="blog"] .blog-entry,
+.house-shell[data-active-room="blog"] .note-list p {
+  color: #3b2b2b;
+  border-color: rgba(112, 70, 66, 0.18);
+  background: rgba(255, 252, 235, 0.76);
+}
+
+.house-shell[data-active-room="blog"] .eyebrow,
+.house-shell[data-active-room="blog"] h2,
+.house-shell[data-active-room="blog"] h3,
+.house-shell[data-active-room="blog"] .blog-entry p,
+.house-shell[data-active-room="blog"] .room-intro {
+  color: #4a3131;
+}
+
+.house-shell[data-active-room="blog"] .blog-entry {
+  align-items: start;
+  border-radius: 6px 18px 18px 6px;
+  border-left: 5px solid rgba(187, 116, 91, 0.42);
+}
+
+.house-shell[data-active-room="friends"] .content-shell {
+  color: #463226;
+  background: rgba(255, 225, 190, 0.82);
+}
+
+.house-shell[data-active-room="friends"] .content-card {
+  color: #463226;
+  border-color: rgba(145, 92, 63, 0.2);
+  background: rgba(255, 247, 226, 0.72);
+}
+
+.house-shell[data-active-room="friends"] .guestbook article {
+  color: #463226;
+  border-color: rgba(145, 92, 63, 0.18);
+  background: rgba(255, 252, 238, 0.78);
+  border-radius: 18px 8px 18px 8px;
+}
+
+.house-shell[data-active-room="friends"] .eyebrow,
+.house-shell[data-active-room="friends"] h2,
+.house-shell[data-active-room="friends"] h3,
+.house-shell[data-active-room="friends"] .guestbook p,
+.house-shell[data-active-room="friends"] .visitor-notes,
+.house-shell[data-active-room="friends"] .room-intro {
+  color: #5a3b2c;
+}
+
 .home-panel {
   position: absolute;
   left: 50%;

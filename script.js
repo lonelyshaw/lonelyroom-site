@@ -41,6 +41,8 @@ const showRoom = (room) => {
       pill.classList.toggle("is-active", pill.dataset.roomTarget === activeRoom);
     });
 
+    renderAmbientNotes(activeRoom);
+
     window.setTimeout(() => {
       houseShell.classList.remove("is-transitioning");
       isTransitioning = false;
@@ -245,26 +247,70 @@ const updateTimeAtmosphere = () => {
   document.body.dataset.time = timeOfDay;
 };
 
-const randomNoteTexts = [
-  "заварить чай",
-  "открыть окно",
-  "дочитать главу",
-  "проверить чайник",
-  "покормить кота",
-  "посмотреть на дождь",
-  "оставить лампу включённой",
-  "написать мысль",
-  "сохранить воспоминание",
-  "вернуться вечером",
-];
+const ambientNotesByRoom = {
+  home: [
+    "заварить чай",
+    "открыть окно",
+    "покормить кота",
+    "посмотреть на дождь",
+    "вернуться вечером",
+  ],
+  books: [
+    "дочитать главу",
+    "закладка на столе",
+    "эта фраза важная",
+    "чай и полка",
+    "проверить книгу у окна",
+  ],
+  anime: [
+    "Фрирен сегодня",
+    "Нацумэ для вечера",
+    "серия под плед",
+    "мягкий экран",
+    "тихое вау",
+  ],
+  music: [
+    "дождь и окно",
+    "дорога ночью",
+    "тихий фокус",
+    "винил у лампы",
+    "песня для дома",
+  ],
+  blog: [
+    "написать мысль",
+    "идея для поста",
+    "сохранить воспоминание",
+    "строчка перед сном",
+    "не потерять чувство",
+  ],
+  friends: [
+    "заходи на чай",
+    "плед на диване",
+    "оставь записку",
+    "тебя ждали",
+    "лампа включена",
+  ],
+};
+
+const renderAmbientNotes = (room) => {
+  const notes = ambientNotesByRoom[room] || ambientNotesByRoom.home;
+  ambientNotes.replaceChildren();
+
+  notes.slice(0, 2).forEach((text) => {
+    const note = document.createElement("span");
+    note.textContent = text;
+    ambientNotes.append(note);
+  });
+};
 
 const addAmbientNote = () => {
   if (ambientNotes.children.length > 5) {
     ambientNotes.firstElementChild.remove();
   }
 
+  const notes = ambientNotesByRoom[activeRoom] || ambientNotesByRoom.home;
   const note = document.createElement("span");
-  note.textContent = randomNoteTexts[Math.floor(Math.random() * randomNoteTexts.length)];
+  note.textContent = notes[Math.floor(Math.random() * notes.length)];
   ambientNotes.append(note);
 };
 
@@ -364,6 +410,7 @@ ambientToggle.addEventListener("click", async () => {
 
 updateClock();
 updateTimeAtmosphere();
+renderAmbientNotes(activeRoom);
 window.setInterval(updateClock, 1000);
 window.setInterval(updateTimeAtmosphere, 60000);
 window.setInterval(addAmbientNote, 18000);
